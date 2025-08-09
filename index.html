@@ -10,9 +10,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Firebase SDKs (solo las que necesitas) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Supabase CDN (incluye @supabase/supabase-js) -->
+    <!-- Este script debe cargarse antes de que cualquier código intente usar 'Supabase' -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2.44.0/dist/umd/supabase.min.js"></script>
+
+    <script>
+        // Inicializa Supabase tan pronto como su SDK esté disponible.
+        // Ahora está fuera de cualquier listener de carga (como window.onload)
+        // para asegurar que 'Supabase' esté definido globalmente de inmediato.
+        const SUPABASE_URL = 'https://fnasihlmuuqwyyupgbyq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZuYXNpaGxtdXVxd3l5dXBnYnlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NjgwNjIsImV4cCI6MjA3MDM0NDA2Mn0.1C8nhMztjrmldhho7oQXcTgzhxuowYHR9_zwZoqe6Hk';
+        const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+
     <style>
         /* Custom styles for the Inter font and smooth scrolling */
         body {
@@ -21,7 +32,7 @@
             background-color: #f8f4f0; /* Un color de fondo suave y cálido */
             color: #333;
             /* Background image styles */
-            background-image: url('https://github.com/Smillan94/Costura-Latina/blob/main/Imagen%20de%20WhatsApp%202025-07-16%20a%20las%2002.36.25_1229015e.jpg?raw=true');
+            background-image: url('https://github.com/Smillan94/Costura-Latina/blob/main/Imagen%20de%20WhatsApp%202025-07-16%20a%20las%02.36.25_1229015e.jpg?raw=true');
             background-size: cover; /* Cubre toda el área */
             background-position: center; /* Centra la imagen */
             background-attachment: fixed; /* Fija la imagen de fondo al viewport */
@@ -241,7 +252,7 @@
                 <!-- Service 4: Reparaciones express -->
                 <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
                     <div class="icon-bg mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f06292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bolt"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m12 3-7 4"/><path d="m12 21 7-4"/><path d="M8.2 10.2 12 12l3.8-1.8"/><path d="M12 12v6"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bolt"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m12 3-7 4"/><path d="m12 21 7-4"/><path d="M8.2 10.2 12 12l3.8-1.8"/><path d="M12 12v6"/></svg>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-800 mb-2">Reparaciones Express</h3>
                     <p class="text-gray-600">¿Un descosido inesperado? ¡Te lo arreglamos en un abrir y cerrar de ojos para que sigas brillando!</p>
@@ -266,18 +277,18 @@
                     <input type="text" id="nombre" name="nombre" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Tu nombre completo" required>
                 </div>
                 <div class="mb-6 text-left">
-                    <label for="contacto" class="block text-gray-700 text-sm font-semibold mb-2">Email o WhatsApp</label>
-                    <input type="text" id="contacto" name="contacto" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="ej. tu@email.com o +34 6XX XXX XXX" required>
+                    <label for="correo" class="block text-gray-700 text-sm font-semibold mb-2">Correo Electrónico (opcional)</label>
+                    <input type="email" id="correo" name="correo" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="ej. tu@email.com">
+                </div>
+                <div class="mb-6 text-left">
+                    <label for="whatsapp" class="block text-gray-700 text-sm font-semibold mb-2">Número de WhatsApp (opcional)</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="ej. +34 6XX XXX XXX">
                 </div>
                 <div class="mb-6 text-left">
                     <label for="descripcion" class="block text-gray-700 text-sm font-semibold mb-2">Descripción del proyecto</label>
                     <textarea id="descripcion" name="descripcion" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Cuéntanos con detalle qué tipo de arreglo o transformación necesitas."></textarea>
                 </div>
-                <div class="mb-6 text-left">
-                    <label for="foto" class="block text-gray-700 text-sm font-semibold mb-2">Adjuntar foto (opcional - no soportado directamente)</label>
-                    <input type="file" id="foto" name="foto" accept="image/*" class="w-full text-gray-700" disabled>
-                    <p class="text-xs text-gray-500 mt-1">El adjunto de fotos requiere una configuración más avanzada.</p>
-                </div>
+                <!-- Sección "Adjuntar foto" eliminada según tu solicitud -->
                 <button type="submit" class="form-button w-full">
                     Enviar solicitud
                 </button>
@@ -339,14 +350,7 @@
                 </div>
                 <!-- Email section removed as requested -->
             </div>
-            <div class="mt-12">
-                <p class="text-xl font-semibold text-pink-600 mb-4">Escanéa para chatear directamente:</p>
-                <!-- QR Code for WhatsApp -->
-                <img src="https://github.com/Smillan94/Costura-Latina/blob/main/Imagen%20de%20WhatsApp%202025-07-16%20a%20las%2003.14.40_09eabdc6.jpg?raw=true" alt="Código QR para WhatsApp" class="mx-auto rounded-lg shadow-md border-2 border-pink-300">
-                <p class="text-sm text-gray-600 mt-2">
-                    (Escanea este código para abrir un chat directo en WhatsApp)
-                </p>
-            </div>
+            <!-- SECCIÓN DEL CÓDIGO QR ELIMINADA -->
             <div class="mt-12">
                 <p class="text-xl font-semibold text-pink-600 mb-4">Síguenos en redes:</p>
                 <div class="flex justify-center space-x-6">
@@ -414,66 +418,69 @@
             });
         });
 
-        // Firebase configuration (REEMPLAZA ESTO CON TU PROPIA CONFIGURACIÓN DE FIREBASE)
-        const firebaseConfig = {
-            apiKey: "TU_API_KEY",
-            authDomain: "TU_AUTH_DOMAIN",
-            projectId: "TU_PROJECT_ID",
-            storageBucket: "TU_STORAGE_BUCKET",
-            messagingSenderId: "TU_MESSAGING_SENDER_ID",
-            appId: "TU_APP_ID"
+        // Asegurarse de que el DOM y todos los recursos (incluyendo scripts externos) estén completamente cargados
+        window.onload = () => {
+            document.getElementById('contact-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const form = e.target;
+                const formMessage = document.getElementById('form-message');
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                // Show loading message
+                formMessage.textContent = 'Enviando...';
+                formMessage.classList.remove('hidden', 'text-green-600', 'text-red-600');
+                formMessage.classList.add('text-gray-600');
+                submitButton.disabled = true; // Disable button to prevent multiple submissions
+
+                // Get form data
+                const formData = new FormData(form);
+                const nombre = formData.get('nombre');
+                const correo = formData.get('correo');
+                const whatsapp = formData.get('whatsapp');
+                const descripcion = formData.get('descripcion');
+
+                // Debugging: Log the data being sent
+                console.log('Enviando datos a Supabase:', { nombre, correo, whatsapp, descripcion });
+
+                // Send data to Supabase
+                try {
+                    const { data, error } = await supabase
+                        .from('solicitudes_presupuesto') // Nombre de tu tabla en Supabase
+                        .insert([
+                            { nombre: nombre, correo: correo, whatsapp: whatsapp, descripcion: descripcion }
+                        ])
+                        .select(); // Añadir .select() para obtener los datos insertados en la respuesta
+
+                    if (error) {
+                        // Log more detailed error from Supabase
+                        console.error('Error de Supabase al insertar:', error);
+                        formMessage.textContent = `Hubo un problema al enviar tu solicitud: ${error.message}. Por favor, revisa la consola para más detalles.`;
+                        formMessage.classList.remove('text-gray-600', 'text-green-600');
+                        formMessage.classList.add('text-red-600');
+                        throw error; // Re-lanzar para que el catch global también lo vea
+                    }
+
+                    console.log('Datos insertados con éxito:', data); // Log the successful data
+                    formMessage.textContent = '¡Tu solicitud ha sido enviada con éxito! Nos pondremos en contacto pronto.';
+                    formMessage.classList.remove('text-gray-600', 'text-red-600');
+                    formMessage.classList.add('text-green-600');
+                    form.reset(); // Clear the form on success
+
+                } catch (error) {
+                    // This catch block will now catch network errors AND errors thrown from Supabase
+                    console.error('Error general al enviar el formulario:', error);
+                    formMessage.textContent = 'Error de conexión o del servidor. Asegúrate de tener acceso a internet e intenta de nuevo.';
+                    formMessage.classList.remove('text-gray-600', 'text-green-600');
+                    formMessage.classList.add('text-red-600');
+                } finally {
+                    submitButton.disabled = false; // Re-enable button
+                    setTimeout(() => {
+                        formMessage.classList.add('hidden');
+                    }, 5000); // Hide message after 5 seconds
+                }
+            });
         };
-
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-        // Form submission handling for Firebase Firestore
-        document.getElementById('contact-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-
-            const form = e.target;
-            const formMessage = document.getElementById('form-message');
-            const submitButton = form.querySelector('button[type="submit"]');
-
-            // Show loading message
-            formMessage.textContent = 'Enviando...';
-            formMessage.classList.remove('hidden', 'text-green-600', 'text-red-600');
-            formMessage.classList.add('text-gray-600');
-            submitButton.disabled = true; // Disable button to prevent multiple submissions
-
-            // Get form data
-            const formData = new FormData(form);
-            const nombre = formData.get('nombre');
-            const contacto = formData.get('contacto');
-            const descripcion = formData.get('descripcion');
-
-            // Send data to Firestore
-            try {
-                await db.collection("solicitudes_presupuesto").add({
-                    nombre: nombre,
-                    contacto: contacto,
-                    descripcion: descripcion,
-                    fecha_envio: firebase.firestore.FieldValue.serverTimestamp() // Firestore timestamp
-                });
-
-                formMessage.textContent = '¡Tu solicitud ha sido enviada con éxito! Nos pondremos en contacto pronto.';
-                formMessage.classList.remove('text-gray-600', 'text-red-600');
-                formMessage.classList.add('text-green-600');
-                form.reset(); // Clear the form on success
-
-            } catch (error) {
-                formMessage.textContent = 'Hubo un problema al enviar tu solicitud. Por favor, intenta de nuevo.';
-                formMessage.classList.remove('text-gray-600', 'text-green-600');
-                formMessage.classList.add('text-red-600');
-                console.error('Error al enviar a Firestore:', error.message || error);
-            } finally {
-                submitButton.disabled = false; // Re-enable button
-                setTimeout(() => {
-                    formMessage.classList.add('hidden');
-                }, 5000); // Hide message after 5 seconds
-            }
-        });
     </script>
 </body>
 </html>
