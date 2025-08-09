@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Costura Latina: Confianza, Detalle y Calidad Hechos a Mano</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Supabase CDN (incluye @supabase/supabase-js) -->
+    <!-- Este script debe cargarse antes de que cualquier código intente usar 'Supabase' -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2.44.0/dist/umd/supabase.min.js"></script>
+
+    <script>
+        // Inicializa Supabase tan pronto como su SDK esté disponible.
+        // Ahora está fuera de cualquier listener de carga (como window.onload)
+        // para asegurar que 'Supabase' esté definido globalmente de inmediato.
+        const SUPABASE_URL = 'https://fnasihlmuuqwyyupgbyq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZuYXNpaGxtdXVxd3l5dXBnYnlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NjgwNjIsImV4cCI6MjA3MDM0NDA2Mn0.1C8nhMztjrmldhho7oQXcTgzhxuowYHR9_zwZoqe6Hk';
+        const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    </script>
+
+    <style>
+        /* Custom styles for the Inter font and smooth scrolling */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #f8f4f0; /* Un color de fondo suave y cálido */
+            color: #333;
+            /* Background image styles */
+            background-image: url('https://github.com/Smillan94/Costura-Latina/blob/main/Imagen%20de%20WhatsApp%202025-07-16%20a%20las%02.36.25_1229015e.jpg?raw=true');
+            background-size: cover; /* Cubre toda el área */
+            background-position: center; /* Centra la imagen */
+            background-attachment: fixed; /* Fija la imagen de fondo al viewport */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+        }
+        /* Custom styles for the carousel (no longer needed for video, but keeping for reference if carousel returns) */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 1rem; /* Bordes redondeados */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 9999px; /* Botones redondos */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .carousel-button.prev {
+            left: 1rem;
+        }
+        .carousel-button.next {
+            right: 1rem;
+        }
+        .carousel-button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        /* Custom styles for icon backgrounds */
+        .icon-bg {
+            background-color: #ffe4e6; /* Un rosa muy suave para los iconos */
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        /* Style for the form button */
+        .form-button {
+            background-color: #f06292; /* Un rosa más vibrante para el botón */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-button:hover {
+            background-color: #e91e63; /* Un rosa más oscuro al pasar el ratón */
+        }
+        /* Responsive video container */
+        .video-responsive {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .video-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        /* Ensure content blocks have a background so text is readable over the background image */
+        section {
+            /* Reduced opacity for more transparency */
+            background-color: rgba(255, 255, 255, 0.7); /* Fondo semi-transparente para legibilidad */
+            backdrop-filter: blur(2px); /* Un ligero desenfoque para el fondo */
+            margin-bottom: 4rem; /* Increased space between sections */
+            margin-top: 4rem; /* Increased space between sections */
+        }
+        /* Specific background colors for sections to override the general section rule if needed */
+        #sobre-nosotros {
+            background-color: rgba(255, 255, 255, 0.7); /* Reduced opacity from 0.9 to 0.7 */
+        }
+        #servicios {
+            background-color: rgba(255, 244, 240, 0.7); /* Reduced opacity from 0.9 to 0.7 */
+        }
+        #presupuesto {
+            background-color: rgba(255, 244, 240, 0.7); /* Reduced opacity from 0.9 to 0.7 */
+        }
+        #testimonios {
+            background-color: rgba(255, 255, 255, 0.7); /* Reduced opacity from 0.9 to 0.7 */
+        }
+        #contacto {
+            background-color: rgba(255, 244, 240, 0.7); /* Reduced opacity from 0.9 to 0.7 */
+        }
+        /* Hero section also needs adjustment for its gradient background */
+        .hero-section-gradient {
+            background: linear-gradient(to right, rgba(255, 228, 230, 0.7), rgba(224, 242, 254, 0.7)); /* Reduced opacity for gradient colors */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm py-4 sticky top-0 z-50 rounded-b-xl">
+        <nav class="container mx-auto flex justify-between items-center px-4 md:px-6">
+            <!-- Logo -->
+            <a href="#" class="text-2xl font-bold text-pink-600 tracking-wide">Costura Latina</a>
+            <!-- Navigation Menu -->
+            <ul class="hidden md:flex space-x-8">
+                <li><a href="#sobre-nosotros" class="text-gray-700 hover:text-pink-600 transition duration-300">Sobre Nosotros</a></li>
+                <li><a href="#servicios" class="text-gray-700 hover:text-pink-600 transition duration-300">Servicios</a></li>
+                <li><a href="#presupuesto" class="text-gray-700 hover:text-pink-600 transition duration-300">Solicitar Presupuesto</a></li>
+                <li><a href="#contacto" class="text-gray-700 hover:text-pink-600 transition duration-300">Contacto</a></li>
+            </ul>
+            <!-- Mobile Menu Button (Hamburger) -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-6">
+            <button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-700 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <ul class="text-center text-2xl space-y-6">
+                <li><a href="#sobre-nosotros" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Sobre Nosotros</a></li>
+                <li><a href="#servicios" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Servicios</a></li>
+                <li><a href="#presupuesto" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Solicitar Presupuesto</a></li>
+                <li><a href="#contacto" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contacto</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section-gradient py-20 text-center rounded-b-3xl shadow-lg">
+        <div class="container mx-auto px-4 md:px-6">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-pink-700 leading-tight mb-4 animate-fade-in-down">
+                Costura Latina: Confianza, detalle y calidad hechos a mano
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-700 mb-8 max-w-3xl mx-auto animate-fade-in-up">
+                Transformamos tu ropa y cuidamos cada costura con amor.
+            </p>
+            <a href="#presupuesto" class="inline-block bg-pink-600 text-white text-lg font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-pink-700 transition duration-300 transform hover:scale-105">
+                Solicitar Presupuesto
+            </a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="sobre-nosotros" class="py-16 md:py-24 rounded-xl shadow-md mx-4 md:mx-auto">
+        <div class="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-center gap-12">
+            <div class="md:w-1/2 text-center md:text-left">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Sobre Nosotros</h2>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                    En Costura Latina, cada puntada es un pedacito de nuestra esencia migrante y el amor por el arte de coser. No solo arreglamos tu ropa, le damos una segunda vida con soluciones reales y cercanía. Ponemos pasión y un toque de humor en cada transformación, porque tu vestuario merece confianza, detalle y calidad hechos a mano.
+                </p>
+            </div>
+            <!-- Video Embed for "Sobre Nosotros" section -->
+            <div class="md:w-1/2 w-full video-responsive">
+                <iframe
+                    src="https://www.instagram.com/p/DHchaUOB1sd/embed/"
+                    title="Instagram Reel"
+                    frameborder="0"
+                    allowfullscreen
+                    allowtransparency="true"
+                ></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios" class="py-16 md:py-24 rounded-xl shadow-md mx-4 md:mx-auto">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-12">¿En qué te ayudamos?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Service 1: Arreglos y dobladillos -->
+                <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
+                    <div class="icon-bg mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f06292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scissors"><circle cx="6" cy="7" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="17" r="3"/><path d="M14.47 14.48 20 20"/><path d="M8.12 15.88 12 12"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Arreglos y Dobladillos</h3>
+                    <p class="text-gray-600">Ajustes perfectos para que tu ropa te quede como un guante. ¡Ni una puntada de más, ni de menos!</p>
+                </div>
+                <!-- Service 2: Transformación de prendas -->
+                <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
+                    <div class="icon-bg mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f06292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="M9.9 10.8 2.7 14.7C2.2 15.1 2.9 16 3.4 15.6L10.5 11.7C10.9 11.3 10.2 10.4 9.9 10.8Z"/><path d="M12.7 2.1 14 8.7C14.2 9.4 14.9 9.8 15.6 9.6L22.2 8.3C22.9 8.1 23.3 7.4 23.1 6.7L16.5 0.1C16.1-.3 15.4 .1 15.2 .8L12.7 2.1Z"/><path d="M19.9 13.8 21.2 20.4C21.4 21.1 20.7 21.8 20 21.6L13.4 20.3C12.7 20.1 12.3 19.4 12.5 18.7L15 16.2C15.4 15.8 16.1 16.2 16.4 16.9L19.9 13.8Z"/><path d="M5 19.2 6.3 22.1C6.5 22.6 7.2 22.7 7.7 22.4L10.6 21.1C11.1 20.9 11.2 20.2 10.9 19.7L8.4 17.2C8 16.8 7.3 17.2 7 17.9L5 19.2Z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Transformación de Prendas</h3>
+                    <p class="text-gray-600">Dale una segunda vida a esa prenda que amas. ¡De lo viejo a lo fabuloso con un toque mágico!</p>
+                </div>
+                <!-- Service 3: Personalización (bordados, aplicaciones) -->
+                <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
+                    <div class="icon-bg mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f06292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-palette"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.67 0-.437-.172-.832-.418-1.103-.346-.345-.346-.91 0-1.255.804-.804 1.988-1.521 3.228-1.677 1.52-.18 3.058.09 4.336.829 1.845 1.159 2.99 4.067 2.99 4.067V12c0-5.5-4.5-10-10-10z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Personalización</h3>
+                    <p class="text-gray-600">Bordados, aplicaciones y detalles únicos para que tu ropa cuente tu historia. ¡Hazla tuya!</p>
+                </div>
+                <!-- Service 4: Reparaciones express -->
+                <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
+                    <div class="icon-bg mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bolt"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m12 3-7 4"/><path d="m12 21 7-4"/><path d="M8.2 10.2 12 12l3.8-1.8"/><path d="M12 12v6"/></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Reparaciones Express</h3>
+                    <p class="text-gray-600">¿Un descosido inesperado? ¡Te lo arreglamos en un abrir y cerrar de ojos para que sigas brillando!</p>
+                </div>
+            </div>
+            <p class="text-lg md:text-xl text-gray-700 mt-12 font-semibold">
+                Calidad y rapidez sin perder el toque artesanal.
+            </p>
+        </div>
+    </section>
+
+    <!-- Request Quote Section -->
+    <section id="presupuesto" class="py-16 md:py-24 rounded-xl shadow-md mx-4 md:mx-auto">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">Solicitar Presupuesto</h2>
+            <p class="text-gray-700 mb-8 max-w-2xl mx-auto">
+                ¡Cuéntanos qué necesitas! Rellena el formulario y nos pondremos en contacto contigo para darte la mejor solución.
+            </p>
+            <form id="contact-form" class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+                <div class="mb-6 text-left">
+                    <label for="nombre" class="block text-gray-700 text-sm font-semibold mb-2">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Tu nombre completo" required>
+                </div>
+                <div class="mb-6 text-left">
+                    <label for="correo" class="block text-gray-700 text-sm font-semibold mb-2">Correo Electrónico (opcional)</label>
+                    <input type="email" id="correo" name="correo" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="ej. tu@email.com">
+                </div>
+                <div class="mb-6 text-left">
+                    <label for="whatsapp" class="block text-gray-700 text-sm font-semibold mb-2">Número de WhatsApp (opcional)</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="ej. +34 6XX XXX XXX">
+                </div>
+                <div class="mb-6 text-left">
+                    <label for="descripcion" class="block text-gray-700 text-sm font-semibold mb-2">Descripción del proyecto</label>
+                    <textarea id="descripcion" name="descripcion" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Cuéntanos con detalle qué tipo de arreglo o transformación necesitas."></textarea>
+                </div>
+                <!-- Sección "Adjuntar foto" eliminada según tu solicitud -->
+                <button type="submit" class="form-button w-full">
+                    Enviar solicitud
+                </button>
+                <p id="form-message" class="mt-4 text-green-600 font-semibold hidden"></p>
+            </form>
+            <p class="text-sm text-gray-600 mt-6">
+                Nos pondremos en contacto en menos de 24 h. ¡Prometido!
+            </p>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonios" class="py-12 md:py-16 rounded-xl shadow-md mx-4 md:mx-auto">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">Lo que dicen nuestros clientes</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="bg-pink-50 p-4 rounded-xl shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/80x80/FFD1DC/333333?text=Ana" alt="Foto de Ana G." class="w-16 h-16 rounded-full object-cover mb-3 border-2 border-pink-300">
+                    <p class="text-gray-700 text-sm italic mb-3">
+                        "¡Increíble trabajo! Mi vestido favorito quedó como nuevo, incluso mejor. La atención al detalle es asombrosa y el trato, súper cercano. ¡Recomendadísimos!"
+                    </p>
+                    <p class="font-semibold text-pink-600 text-sm">- Ana G.</p>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-pink-50 p-4 rounded-xl shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/80x80/C3E0FF/333333?text=Carlos" alt="Foto de Carlos M." class="w-16 h-16 rounded-full object-cover mb-3 border-2 border-pink-300">
+                    <p class="text-gray-700 text-sm italic mb-3">
+                        "Necesitaba un arreglo urgente para una boda y me salvaron el día. Calidad, rapidez y una sonrisa. Da gusto encontrar profesionales así. ¡Gracias, Costura Latina!"
+                    </p>
+                    <p class="font-semibold text-pink-600 text-sm">- Carlos M.</p>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-pink-50 p-4 rounded-xl shadow-md flex flex-col items-center text-center">
+                    <img src="https://placehold.co/80x80/FFFACD/333333?text=Maria" alt="Foto de María P." class="w-16 h-16 rounded-full object-cover mb-3 border-2 border-pink-300">
+                    <p class="text-gray-700 text-sm italic mb-3">
+                        "Llevé unos jeans para transformar y el resultado superó mis expectativas. Captaron mi idea a la perfección y le dieron un toque único. ¡Mi ropa ahora tiene personalidad!"
+                    </p>
+                    <p class="font-semibold text-pink-600 text-sm">- María P.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="py-16 md:py-24 rounded-xl shadow-md mx-4 md:mx-auto">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">Contáctanos</h2>
+            <p class="text-gray-700 mb-8 max-w-2xl mx-auto">
+                ¿Listo para darle una nueva vida a tu ropa? ¡Estamos aquí para ayudarte!
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+                <div class="flex flex-col items-center">
+                    <p class="text-xl font-semibold text-pink-600 mb-2">Teléfono/WhatsApp:</p>
+                    <a href="https://wa.me/61430049118" target="_blank" class="text-gray-700 text-2xl hover:text-pink-600 transition duration-300 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone-call mr-2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/><path d="M14.5 4.05a5 5 0 0 0-6.5 6.5"/><path d="M17.8 7.2a9 9 0 0 0-10.6 10.6"/></svg>
+                        +61 430 049 118
+                    </a>
+                </div>
+                <!-- Email section removed as requested -->
+            </div>
+            <!-- SECCIÓN DEL CÓDIGO QR ELIMINADA -->
+            <div class="mt-12">
+                <p class="text-xl font-semibold text-pink-600 mb-4">Síguenos en redes:</p>
+                <div class="flex justify-center space-x-6">
+                    <!-- Instagram Link Updated -->
+                    <a href="https://www.instagram.com/costura_latina_/" target="_blank" class="text-gray-700 hover:text-pink-600 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.5" y1="6.5" y2="6.5"/></svg>
+                    </a>
+                    <!-- Facebook Link Updated -->
+                    <a href="https://www.facebook.com/profile.php?id=61575973637883" target="_blank" class="text-gray-700 hover:text-pink-600 transition duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-10 rounded-t-xl shadow-lg">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <a href="#" class="text-xl font-bold text-pink-400 tracking-wide mb-4 inline-block">Costura Latina</a>
+            <nav class="flex flex-wrap justify-center gap-4 text-sm mb-6">
+                <a href="#sobre-nosotros" class="text-gray-300 hover:text-pink-400 transition duration-300">Sobre Nosotros</a>
+                <a href="#servicios" class="text-gray-300 hover:text-pink-400 transition duration-300">Servicios</a>
+                <a href="#presupuesto" class="text-gray-300 hover:text-pink-400 transition duration-300">Solicitar Presupuesto</a>
+                <li><a href="#contacto" class="text-gray-700 hover:text-pink-600 transition duration-300">Contacto</a></li>
+                <a href="#" class="text-gray-300 hover:text-pink-400 transition duration-300">Aviso de Privacidad</a>
+            </nav>
+            <p class="text-gray-400 text-sm">
+                &copy; 2025 Costura Latina. Todos los derechos reservados.
+            </p>
+            <p class="text-gray-400 text-sm mt-2">
+                (Costura Latina: +61 430 049 118)
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+        });
+
+        closeMobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Asegurarse de que el DOM y todos los recursos (incluyendo scripts externos) estén completamente cargados
+        window.onload = () => {
+            document.getElementById('contact-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const form = e.target;
+                const formMessage = document.getElementById('form-message');
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                // Show loading message
+                formMessage.textContent = 'Enviando...';
+                formMessage.classList.remove('hidden', 'text-green-600', 'text-red-600');
+                formMessage.classList.add('text-gray-600');
+                submitButton.disabled = true; // Disable button to prevent multiple submissions
+
+                // Get form data
+                const formData = new FormData(form);
+                const nombre = formData.get('nombre');
+                const correo = formData.get('correo');
+                const whatsapp = formData.get('whatsapp');
+                const descripcion = formData.get('descripcion');
+
+                // Debugging: Log the data being sent
+                console.log('Enviando datos a Supabase:', { nombre, correo, whatsapp, descripcion });
+
+                // Send data to Supabase
+                try {
+                    const { data, error } = await supabase
+                        .from('solicitudes_presupuesto') // Nombre de tu tabla en Supabase
+                        .insert([
+                            { nombre: nombre, correo: correo, whatsapp: whatsapp, descripcion: descripcion }
+                        ])
+                        .select(); // Añadir .select() para obtener los datos insertados en la respuesta
+
+                    if (error) {
+                        // Log more detailed error from Supabase
+                        console.error('Error de Supabase al insertar:', error);
+                        formMessage.textContent = `Hubo un problema al enviar tu solicitud: ${error.message}. Por favor, revisa la consola para más detalles.`;
+                        formMessage.classList.remove('text-gray-600', 'text-green-600');
+                        formMessage.classList.add('text-red-600');
+                        throw error; // Re-lanzar para que el catch global también lo vea
+                    }
+
+                    console.log('Datos insertados con éxito:', data); // Log the successful data
+                    formMessage.textContent = '¡Tu solicitud ha sido enviada con éxito! Nos pondremos en contacto pronto.';
+                    formMessage.classList.remove('text-gray-600', 'text-red-600');
+                    formMessage.classList.add('text-green-600');
+                    form.reset(); // Clear the form on success
+
+                } catch (error) {
+                    // This catch block will now catch network errors AND errors thrown from Supabase
+                    console.error('Error general al enviar el formulario:', error);
+                    formMessage.textContent = 'Error de conexión o del servidor. Asegúrate de tener acceso a internet e intenta de nuevo.';
+                    formMessage.classList.remove('text-gray-600', 'text-green-600');
+                    formMessage.classList.add('text-red-600');
+                } finally {
+                    submitButton.disabled = false; // Re-enable button
+                    setTimeout(() => {
+                        formMessage.classList.add('hidden');
+                    }, 5000); // Hide message after 5 seconds
+                }
+            });
+        };
+    </script>
+</body>
+</html>
