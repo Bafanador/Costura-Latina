@@ -155,7 +155,7 @@
             </div>
         </nav>
         <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white bg-opacity-95 z-40 flex flex-col items-center justify-center space-y-6">
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white bg-opacity-95 z-40 flex flex-col items-center justify-6">
             <button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-700 focus:outline-none">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -374,57 +374,58 @@
         </div>
     </footer>
 
+    <!-- Supabase CDN (incluye @supabase/supabase-js) -->
+    <!-- Este script DEBE cargarse antes de tu script principal que usa 'Supabase' -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2.44.0/dist/umd/supabase.min.js"></script>
+
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        // Define las claves de Supabase
+        const SUPABASE_URL = 'https://fnasihlmuuqwyyupgbyq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZuYXNpaGxtdXVxd3l5dXBnYnlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NjgwNjIsImV4cCI6MjA3MDM0NDA2Mn0.1C8nhMztjrmldhho7oQXcTgzhxuowYHR9_zwZoqe6Hk';
+        let supabaseClient; // Declarada en el ámbito global para esta sección de script
+
+        // Esperar a que el DOM esté completamente cargado antes de adjuntar listeners
+        // de eventos o manipular elementos del DOM, y también para inicializar Supabase.
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializa Supabase SOLO si la biblioteca global Supabase está definida.
+            // La biblioteca Supabase debería haber sido cargada por el script CDN en el <head>.
+            if (typeof Supabase !== 'undefined') {
+                supabaseClient = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                console.log('Supabase client inicializado correctamente dentro de DOMContentLoaded.');
+            } else {
+                console.error('Error: Supabase NO está definido cuando DOMContentLoaded se activó. Esto indica un problema con la descarga o ejecución del CDN.');
+                return; // Salir de la función si Supabase no está disponible para evitar más errores.
+            }
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
                 });
             });
-        });
 
-        // Mobile menu functionality
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+            // Mobile menu functionality
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMobileMenuButton = document.getElementById('close-mobile-menu');
 
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.remove('hidden');
-        });
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+            });
 
-        closeMobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-        });
-
-        // Close mobile menu when a link is clicked
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
+            closeMobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
             });
-        });
 
-        // *** Carga dinámica de Supabase y manejo del formulario ***
-        // Esta es una estrategia más robusta para asegurar que Supabase esté definido
-        // antes de que cualquier código intente usarlo.
-        let supabase; // Declara la variable supabase en un ámbito más amplio
-
-        const loadSupabaseAndInitForm = () => {
-            // Define las claves de Supabase
-            const SUPABASE_URL = 'https://fnasihlmuuqwyyupgbyq.supabase.co';
-            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZuYXNpaGxtdXVxd3l5dXBnYnlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NjgwNjIsImV4cCI6MjA3MDM0NDA2Mn0.1C8nhMztjrmldhho7oQXcTgzhxuowYHR9_zwZoqe6Hk';
-
-            // Inicializa Supabase
-            // Verifica si Supabase está definido antes de crearlo
-            if (typeof Supabase !== 'undefined') {
-                supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                console.log('Supabase client inicializado correctamente.');
-            } else {
-                console.error('Error: Supabase no está definido después de la carga del script.');
-                // Podrías intentar recargar el script o mostrar un mensaje al usuario
-                return; // Salir si Supabase no está disponible
-            }
+            // Close mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
 
             document.getElementById('contact-form').addEventListener('submit', async function(e) {
                 e.preventDefault();
@@ -451,7 +452,12 @@
 
                 // Send data to Supabase
                 try {
-                    const { data, error } = await supabase
+                    // Verificación adicional para asegurar que 'supabaseClient' está definido antes de usarlo.
+                    if (!supabaseClient) {
+                        throw new Error("El cliente de Supabase no se inicializó correctamente. Por favor, revisa errores de carga del CDN.");
+                    }
+                    
+                    const { data, error } = await supabaseClient
                         .from('solicitudes_presupuesto') // Nombre de tu tabla en Supabase
                         .insert([
                             { nombre: nombre, correo: correo, whatsapp: whatsapp, descripcion: descripcion }
@@ -464,7 +470,6 @@
                         formMessage.textContent = `Hubo un problema al enviar tu solicitud: ${error.message}. Por favor, revisa la consola para más detalles.`;
                         formMessage.classList.remove('text-gray-600', 'text-green-600');
                         formMessage.classList.add('text-red-600');
-                        // No lanzar error aquí para que el finally se ejecute y el botón se re-active.
                     } else {
                         console.log('Datos insertados con éxito:', data); // Log the successful data
                         formMessage.textContent = '¡Tu solicitud ha sido enviada con éxito! Nos pondremos en contacto pronto.';
@@ -476,7 +481,7 @@
                 } catch (error) {
                     // This catch block will now catch network errors AND errors thrown from Supabase
                     console.error('Error general al enviar el formulario (catch):', error);
-                    formMessage.textContent = 'Error de conexión o del servidor. Asegúrate de tener acceso a internet e intenta de nuevo.';
+                    formMessage.textContent = `Error de conexión o del servidor: ${error.message}. Asegúrate de tener acceso a internet e intenta de nuevo.`;
                     formMessage.classList.remove('text-gray-600', 'text-green-600');
                     formMessage.classList.add('text-red-600');
                 } finally {
@@ -486,10 +491,7 @@
                     }, 5000); // Hide message after 5 seconds
                 }
             });
-        };
-
-        // Llama a la función de inicialización cuando la ventana y todos sus recursos (incluidos los scripts externos) se hayan cargado.
-        window.onload = loadSupabaseAndInitForm;
+        });
     </script>
 </body>
 </html>
