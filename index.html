@@ -16,7 +16,6 @@
                         url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
             background-size: cover; background-position: center; background-attachment: fixed;
         }
-        /* Desactivar background-attachment fixed en móviles para evitar jank */
         @media (max-width: 768px) { .hero-bg { background-attachment: scroll; } }
         .fade-in { opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
@@ -26,9 +25,7 @@
         .slider-track { display: flex; transition: transform .5s ease; }
         .slider-item { min-width: 300px; margin-right: 20px; }
         .counter-animation { font-weight: 700; color: #ec4899; }
-        /* Honeypot invisible */
         .honeypot { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; tab-index: -1; }
-        /* WhatsApp sticky solo en móvil */
         .whatsapp-sticky {
             position: fixed; bottom: 20px; right: 20px; z-index: 40;
             background: #25D366; color: white; border-radius: 50px; padding: 12px 16px;
@@ -271,7 +268,25 @@
                         </div>
                         <div class="text-left">
                             <label class="block text-gray-700 font-medium mb-2">WhatsApp * <span class="text-pink-600 text-xs font-normal">(Respondemos más rápido)</span></label>
-                            <input type="tel" name="whatsapp" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent" placeholder="+61..." aria-describedby="whatsapp-error">
+                            <!-- ✅ Selector País + Zona horaria + Tel -->
+                            <div class="flex gap-2">
+                                <select id="country-code" class="px-3 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent">
+                                    <option value="+61">🇦🇺 +61 AU</option>
+                                    <option value="+57">🇨🇴 +57 CO</option>
+                                    <option value="+64">🇳🇿 +64 NZ</option>
+                                    <option value="+1">🇺🇸 +1 US</option>
+                                </select>
+                                <select id="timezone" class="px-3 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent hidden md:block">
+                                    <option>Australia/Brisbane</option>
+                                    <option>Australia/Sydney</option>
+                                    <option>Australia/Melbourne</option>
+                                    <option>America/Bogota</option>
+                                    <option>America/New_York</option>
+                                    <option>Pacific/Auckland</option>
+                                </select>
+                                <input type="tel" name="whatsapp" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent" placeholder="430 049 118" aria-describedby="whatsapp-error">
+                            </div>
+                            <div class="text-xs text-gray-500 mt-1 md:block hidden">El prefijo se ajusta según tu país/zona horaria.</div>
                             <div id="whatsapp-error" role="alert" class="text-red-600 text-sm mt-1 hidden"></div>
                         </div>
                     </div>
@@ -348,26 +363,61 @@
 
     <!-- WhatsApp sticky -->
     <a href="https://wa.me/61430049118" class="whatsapp-sticky" target="_blank" rel="noopener" aria-label="Chatear por WhatsApp">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884"/></svg>
         WhatsApp
     </a>
 
-    <!-- Supabase UMD -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2.44.0/dist/umd/supabase.min.js"></script>
+    <!-- ====== Supabase UMD robusto (con fallback) ====== -->
     <script>
-        // === Supabase Configuration (con tus datos) ===
-        const SUPABASE_URL = 'https://fnasihlmuuqwyyupgbyq.supabase.co'; // ✅ TU URL
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZuYXNpaGxtdXVxd3l5dXBnYnlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NjgwNjIsImV4cCI6MjA3MDM0NDA2Mn0.1C8nhMztjrmldhho7oQXcTgzhxuowYHR9_zwZoqe6Hk'; // ✅ TU anon key
-        let supabaseClient;
+      const SUPABASE_URL = 'https://fnasihlmuuqwyyupgbyq.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZuYXNpaGxtdXVxd3l5dXBnYnlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NjgwNjIsImV4cCI6MjA3MDM0NDA2Mn0.1C8nhMztjrmldhho7oQXcTgzhxuowYHR9_zwZoqe6Hk';
 
+      function loadScript(src) {
+        return new Promise((resolve, reject) => {
+          const s = document.createElement('script');
+          s.src = src;
+          s.async = false;
+          s.defer = true;
+          s.onload = resolve;
+          s.onerror = reject;
+          document.head.appendChild(s);
+        });
+      }
+
+      async function ensureSupabaseLoaded() {
+        const primary = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.44.0/dist/umd/supabase.min.js';
+        const fallback = 'https://unpkg.com/@supabase/supabase-js@2.44.0/dist/umd/supabase.min.js';
+        try {
+          if (!window.supabase) await loadScript(primary);
+          if (!window.supabase) await loadScript(fallback);
+        } catch (e) {
+          console.error('No se pudo cargar el SDK de Supabase desde los CDNs', e);
+        }
+        if (!window.supabase || typeof window.supabase.createClient !== 'function') {
+          console.error('Supabase UMD no disponible después de intentar ambos CDNs');
+          return null;
+        }
+        return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+
+      let supabaseClient = null;
+      document.addEventListener('DOMContentLoaded', async () => {
+        supabaseClient = await ensureSupabaseLoaded();
+        if (!supabaseClient) {
+          const box = document.getElementById('form-message');
+          if (box) {
+            box.classList.remove('hidden');
+            box.innerHTML = '<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">No se pudo cargar el SDK de Supabase. Recarga la página.</div>';
+          }
+        } else {
+          console.log('Supabase UMD cargado ✓');
+        }
+      });
+    </script>
+
+    <!-- ====== Lógica de la página y envío del formulario ====== -->
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // FIX A: global correcto en UMD es "supabase" (minúscula)
-            if (typeof supabase !== 'undefined') {
-                supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            } else {
-                console.error('No se cargó supabase UMD');
-            }
-
             // Smooth scroll
             document.querySelectorAll('a[href^="#"]').forEach(a=>{
                 a.addEventListener('click', e=>{
@@ -395,7 +445,36 @@
             });
             const ce = document.querySelector('[data-count]'); if(ce){ co.observe(ce); }
 
-            // Form
+            // ====== Prefijo por país + zona horaria ======
+            const countrySel = document.getElementById('country-code');
+            const tzSel = document.getElementById('timezone');
+            const phoneInput = document.querySelector('input[name="whatsapp"]');
+
+            // Auto-detect
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+                const lower = tz.toLowerCase();
+                if (lower.includes('australia')) {
+                    tzSel.value = 'Australia/Brisbane';
+                    countrySel.value = '+61';
+                } else if (lower.includes('bogota')) {
+                    tzSel.value = 'America/Bogota';
+                    countrySel.value = '+57';
+                } else if (lower.includes('auckland')) {
+                    tzSel.value = 'Pacific/Auckland';
+                    countrySel.value = '+64';
+                } else if (lower.includes('new_york')) {
+                    tzSel.value = 'America/New_York';
+                    countrySel.value = '+1';
+                }
+            } catch(_) {}
+
+            // Mantener prefijo visible si el usuario borra
+            phoneInput.addEventListener('focus', () => {
+                if (!phoneInput.value.trim()) phoneInput.value = '';
+            });
+
+            // ====== Form ======
             const form = document.getElementById('contact-form');
             const submitButton = document.getElementById('submit-button');
             const consentimientoCheckbox = document.getElementById('consentimiento');
@@ -443,7 +522,8 @@
 
                 let hasErrors=false;
                 if(!fd.get('nombre')?.trim()){ showFieldError('nombre','Por favor, ingresa tu nombre'); hasErrors=true; }
-                if(!fd.get('whatsapp')?.trim()){ showFieldError('whatsapp','Por favor, ingresa tu número de WhatsApp'); hasErrors=true; }
+                const localPhone = (fd.get('whatsapp') || '').toString();
+                if(!localPhone.trim()){ showFieldError('whatsapp','Por favor, ingresa tu número de WhatsApp'); hasErrors=true; }
                 const email = fd.get('correo')?.trim();
                 if(!email){ showFieldError('correo','Por favor, ingresa tu email'); hasErrors=true; }
                 else { const re=/^[^\s@]+@[^\s@]+\.[^\s@]+$/; if(!re.test(email)){ showFieldError('correo','Por favor, ingresa un email válido'); hasErrors=true; } }
@@ -455,29 +535,33 @@
                 }
                 if(hasErrors) return;
 
+                // Normalizar a E.164 con el prefijo del select
+                const cc = countrySel.value || '+61';
+                const digits = localPhone.replace(/[^\d]/g,'');
+                const fullWhatsApp = `${cc}${digits}`.replace(/\+\+/, '+');
+
                 formMessage.innerHTML = '<div class="text-gray-600 font-medium">Enviando solicitud...</div>';
                 formMessage.classList.remove('hidden');
                 submitButton.disabled=true; submitButton.innerHTML='⏳ Enviando...';
 
-                // Construir registro para tabla "messages"
                 const payload = {
                     name: (fd.get('nombre') || '').toString().slice(0,120),
                     email: email.toString().slice(0,200),
-                    message: (`WhatsApp: ${fd.get('whatsapp') || ''} — ${fd.get('descripcion') || ''}`).toString().slice(0,1000),
+                    message: (`WhatsApp: ${fullWhatsApp} — ${fd.get('descripcion') || ''}`).toString().slice(0,1000),
                     user_agent: navigator.userAgent.slice(0,500)
                 };
 
                 try{
-                    if(!supabaseClient) throw new Error('Error de configuración del sistema');
-                    // FIX B: insertar en "messages" (tabla con RLS insert-only)
+                    if(!supabaseClient) throw new Error('Supabase no está inicializado (SDK no cargado)');
                     const { error } = await supabaseClient.from('messages').insert([payload]);
                     if(error) throw error;
 
-                    formMessage.innerHTML = `<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded"><strong>¡Perfecto!</strong> Tu solicitud ha sido enviada. Te contactaremos en menos de 24 horas al ${fd.get('whatsapp')}</div>`;
+                    formMessage.innerHTML = `<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded"><strong>¡Perfecto!</strong> Tu solicitud ha sido enviada. Te contactaremos en menos de 24 horas al ${fullWhatsApp}</div>`;
                     form.reset(); toggleSubmitButton();
                 }catch(err){
                     console.error(err);
-                    formMessage.innerHTML = `<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"><strong>Oops!</strong> Hubo un problema. Por favor, contáctanos al <a href="https://wa.me/61430049118" class="underline">+61 430 049 118</a></div>`;
+                    const msg = (err && (err.message || err.error_description)) ? String(err.message || err.error_description) : 'Hubo un problema. Intenta de nuevo.';
+                    formMessage.innerHTML = `<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"><strong>Oops!</strong> ${msg.replace(/</g,'&lt;')}</div>`;
                 }finally{
                     submitButton.disabled=false; submitButton.innerHTML='🧵 Solicitar Presupuesto GRATIS';
                     setTimeout(()=>{ formMessage.classList.add('hidden'); formMessage.innerHTML=''; }, 10000);
