@@ -3,495 +3,503 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Costura Latina: Confianza, Detalle y Calidad Hechos a Mano</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Arreglos de Ropa con Amor y Precisión - Costura Latina Gold Coast</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* Custom styles for the Inter font and smooth scrolling */
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-            background-color: #f8f4f0; /* Un color de fondo suave y cálido */
-            color: #333;
-            /* Background image styles */
-            background-image: url('https://github.com/Smillan94/Costura-Latina/blob/main/Imagen%20de%20WhatsApp%202025-07-16%20a%20las%02.36.25_1229015e.jpg?raw=true');
-            background-size: cover; /* Cubre toda el área */
-            background-position: center; /* Centra la imagen */
-            background-attachment: fixed; /* Fija la imagen de fondo al viewport */
-            background-repeat: no-repeat; /* Evita que la imagen se repita */
+        body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.9), rgba(219, 39, 119, 0.8)),
+                        url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover; background-position: center; background-attachment: fixed;
         }
-        /* Custom styles for the carousel (no longer needed for video, but keeping for reference if carousel returns) */
-        .carousel-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 1rem; /* Bordes redondeados */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        /* Desactivar background-attachment fixed en móviles para evitar jank */
+        @media (max-width: 768px) { .hero-bg { background-attachment: scroll; } }
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .pulse-button { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(236,72,153,.7)} 70%{box-shadow:0 0 0 10px rgba(236,72,153,0)} 100%{box-shadow:0 0 0 0 rgba(236,72,153,0)}}
+        .slider-container { overflow: hidden; position: relative; }
+        .slider-track { display: flex; transition: transform .5s ease; }
+        .slider-item { min-width: 300px; margin-right: 20px; }
+        .counter-animation { font-weight: 700; color: #ec4899; }
+        /* Honeypot invisible */
+        .honeypot { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; tab-index: -1; }
+        /* WhatsApp sticky solo en móvil */
+        .whatsapp-sticky {
+            position: fixed; bottom: 20px; right: 20px; z-index: 40;
+            background: #25D366; color: white; border-radius: 50px; padding: 12px 16px;
+            box-shadow: 0 4px 12px rgba(37,211,102,.4); transition: all .3s ease; display: flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 600; font-size: 14px;
         }
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .carousel-slide {
-            min-width: 100%;
-            box-sizing: border-box;
-        }
-        .carousel-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.7);
-            border: none;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            z-index: 10;
-            border-radius: 9999px; /* Botones redondos */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-        .carousel-button.prev {
-            left: 1rem;
-        }
-        .carousel-button.next {
-            right: 1rem;
-        }
-        .carousel-button:hover {
-            background-color: rgba(255, 255, 255, 0.9);
-        }
-        /* Custom styles for icon backgrounds */
-        .icon-bg {
-            background-color: #ffe4e6; /* Un rosa muy suave para los iconos */
-            padding: 0.75rem;
-            border-radius: 0.75rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        /* Style for the form button */
-        .form-button {
-            background-color: #f06292; /* Un rosa más vibrante para el botón */
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .form-button:hover {
-            background-color: #e91e63; /* Un rosa más oscuro al pasar el ratón */
-        }
-        /* Responsive video container */
-        .video-responsive {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 1rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        .video-responsive iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-        /* Ensure content blocks have a background so text is readable over the background image */
-        section {
-            /* Reduced opacity for more transparency */
-            background-color: rgba(255, 255, 255, 0.7); /* Fondo semi-transparente para legibilidad */
-            backdrop-filter: blur(2px); /* Un ligero desenfoque para el fondo */
-            margin-bottom: 4rem; /* Increased space between sections */
-            margin-top: 4rem; /* Increased space between sections */
-        }
-        /* Specific background colors for sections to override the general section rule if needed */
-        #sobre-nosotros {
-            background-color: rgba(255, 255, 255, 0.7); /* Reduced opacity from 0.9 to 0.7 */
-        }
-        #servicios {
-            background-color: rgba(255, 244, 240, 0.7); /* Reduced opacity from 0.9 to 0.7 */
-        }
-        #presupuesto {
-            background-color: rgba(255, 244, 240, 0.7); /* Reduced opacity from 0.9 to 0.7 */
-        }
-        #testimonios {
-            background-color: rgba(255, 255, 255, 0.7); /* Reduced opacity from 0.9 to 0.7 */
-        }
-        #contacto {
-            background-color: rgba(255, 244, 240, 0.7); /* Reduced opacity from 0.9 to 0.7 */
-        }
-        /* Hero section also needs adjustment for its gradient background */
-        .hero-section-gradient {
-            background: linear-gradient(to right, rgba(255, 228, 230, 0.7), rgba(224, 242, 254, 0.7)); /* Reduced opacity for gradient colors */
-        }
+        .whatsapp-sticky:hover { background: #20BA5A; transform: scale(1.05); box-shadow: 0 6px 16px rgba(37,211,102,.5); }
+        @media (min-width: 768px) { .whatsapp-sticky { display: none; } }
+        @media (max-width: 767px) { #contact-form { margin-bottom: 80px; } }
     </style>
 </head>
-<body>
+<body class="bg-gray-50">
 
     <!-- Header -->
-    <header class="bg-white shadow-sm py-4 sticky top-0 z-50 rounded-b-xl">
-        <nav class="container mx-auto flex justify-between items-center px-4 md:px-6">
-            <!-- Logo -->
-            <a href="#" class="text-2xl font-bold text-pink-600 tracking-wide">Costura Latina</a>
-            <!-- Navigation Menu -->
-            <ul class="hidden md:flex space-x-8">
-                <li><a href="#sobre-nosotros" class="text-gray-700 hover:text-pink-600 transition duration-300">Sobre Nosotros</a></li>
-                <li><a href="#servicios" class="text-gray-700 hover:text-pink-600 transition duration-300">Servicios</a></li>
-                <li><a href="#presupuesto" class="text-gray-700 hover:text-pink-600 transition duration-300">Solicitar Presupuesto</a></li>
-                <li><a href="#contacto" class="text-gray-700 hover:text-pink-600 transition duration-300">Contacto</a></li>
-            </ul>
-            <!-- Mobile Menu Button (Hamburger) -->
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-700 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
+    <header class="bg-white shadow-sm fixed top-0 w-full z-50">
+        <nav class="container mx-auto flex justify-between items-center px-4 py-3">
+            <div class="text-2xl font-bold text-pink-600">Costura Latina</div>
+            <div class="flex items-center space-x-6">
+                <span class="text-sm text-gray-600 hidden md:block">📍 Gold Coast, QLD</span>
+                <a href="#contacto" class="bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-pink-700 transition">Solicitar Presupuesto</a>
             </div>
         </nav>
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-white bg-opacity-95 z-40 flex flex-col items-center justify-6">
-            <button id="close-mobile-menu" class="absolute top-4 right-4 text-gray-700 focus:outline-none">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            <ul class="text-center text-2xl space-y-6">
-                <li><a href="#sobre-nosotros" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Sobre Nosotros</a></li>
-                <li><a href="#servicios" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Servicios</a></li>
-                <li><a href="#presupuesto" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Solicitar Presupuesto</a></li>
-                <li><a href="#contacto" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contacto</a></li>
-            </ul>
-        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section-gradient py-20 text-center rounded-b-3xl shadow-lg">
-        <div class="container mx-auto px-4 md:px-6">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-pink-700 leading-tight mb-4 animate-fade-in-down">
-                Costura Latina: Confianza, detalle y calidad hechos a mano
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-700 mb-8 max-w-3xl mx-auto animate-fade-in-up">
-                Transformamos tu ropa y cuidamos cada costura con amor.
-            </p>
-            <a href="#presupuesto" class="inline-block bg-pink-600 text-white text-lg font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-pink-700 transition duration-300 transform hover:scale-105">
-                Solicitar Presupuesto
-            </a>
-        </div>
-    </section>
-
-    <!-- About Us Section -->
-    <section id="sobre-nosotros" class="py-16 md:py-24 rounded-xl shadow-md mx-4 md:mx-auto">
-        <div class="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-center gap-12">
-            <div class="md:w-1/2 text-center md:text-left">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Sobre Nosotros</h2>
-                <p class="text-gray-600 leading-relaxed mb-4">
-                    En Costura Latina, cada puntada es un pedacito de nuestra esencia migrante y el amor por el arte de coser. No solo arreglamos tu ropa, le damos una segunda vida con soluciones reales y cercanía. Ponemos pasión y un toque de humor en cada transformación, porque tu vestuario merece confianza, detalle y calidad hechos a mano.
+    <!-- HERO -->
+    <section class="hero-bg min-h-screen flex items-center justify-center text-center text-white pt-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="fade-in">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+                    Arreglos de Ropa con<br><span class="text-yellow-300">Amor y Precisión</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto">
+                    Recupera tus prendas favoritas y dales una segunda vida. Cada puntada cuenta tu historia.
                 </p>
-            </div>
-            <!-- Video Embed for "Sobre Nosotros" section -->
-            <div class="md:w-1/2 w-full video-responsive">
-                <iframe
-                    src="https://www.instagram.com/p/DHchaUOB1sd/embed/"
-                    title="Instagram Reel"
-                    frameborder="0"
-                    allowfullscreen
-                    allowtransparency="true"
-                ></iframe>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="servicios" class="py-16 md:py-24 rounded-xl shadow-md mx-4 md:mx-auto">
-        <div class="container mx-auto px-4 md:px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-12">¿En qué te ayudamos?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Service 1: Arreglos y dobladillos -->
-                <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    <div class="icon-bg mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f06292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scissors"><circle cx="6" cy="7" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="17" r="3"/><path d="M14.47 14.48 20 20"/><path d="M8.12 15.88 12 12"/></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Arreglos y Dobladillos</h3>
-                    <p class="text-gray-600">Ajustes perfectos para que tu ropa te quede como un guante. ¡Ni una puntada de más, ni de menos!</p>
-                </div>
-                <!-- Service 2: Transformación de prendas -->
-                <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    <div class="icon-bg mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f06292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="M9.9 10.8 2.7 14.7C2.2 15.1 2.9 16 3.4 15.6L10.5 11.7C10.9 11.3 10.2 10.4 9.9 10.8Z"/><path d="M12.7 2.1 14 8.7C14.2 9.4 14.9 9.8 15.6 9.6L22.2 8.3C22.9 8.1 23.3 7.4 23.1 6.7L16.5 0.1C16.1-.3 15.4 .1 15.2 .8L12.7 2.1Z"/><path d="M19.9 13.8 21.2 20.4C21.4 21.1 20.7 21.8 20 21.6L13.4 20.3C12.7 20.1 12.3 19.4 12.5 18.7L15 16.2C15.4 15.8 16.1 16.2 16.4 16.9L19.9 13.8Z"/><path d="M5 19.2 6.3 22.1C6.5 22.6 7.2 22.7 7.7 22.4L10.6 21.1C11.1 20.9 11.2 20.2 10.9 19.7L8.4 17.2C8 16.8 7.3 17.2 7 17.9L5 19.2Z"/></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Transformación de Prendas</h3>
-                    <p class="text-gray-600">Dale una segunda vida a esa prenda que amas. ¡De lo viejo a lo fabuloso con un toque mágico!</p>
-                </div>
-                <!-- Service 3: Personalización (bordados, aplicaciones) -->
-                <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    <div class="icon-bg mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f06292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-palette"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.67 0-.437-.172-.832-.418-1.103-.346-.345-.346-.91 0-1.255.804-.804 1.988-1.521 3.228-1.677 1.52-.18 3.058.09 4.336.829 1.845 1.159 2.99 4.067 2.99 4.067V12c0-5.5-4.5-10-10-10z"/></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Personalización</h3>
-                    <p class="text-gray-600">Bordados, aplicaciones y detalles únicos para que tu ropa cuente tu historia. ¡Hazla tuya!</p>
-                </div>
-                <!-- Service 4: Reparaciones express -->
-                <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    <div class="icon-bg mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bolt"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m12 3-7 4"/><path d="m12 21 7-4"/><path d="M8.2 10.2 12 12l3.8-1.8"/><path d="M12 12v6"/></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Reparaciones Express</h3>
-                    <p class="text-gray-600">¿Un descosido inesperado? ¡Te lo arreglamos en un abrir y cerrar de ojos para que sigas brillando!</p>
-                </div>
-            </div>
-            <p class="text-lg md:text-xl text-gray-700 mt-12 font-semibold">
-                Calidad y rapidez sin perder el toque artesanal.
-            </p>
-        </div>
-    </section>
-
-    <!-- Request Quote Section -->
-    <section id="presupuesto" class="py-16 md:py-24 rounded-xl shadow-md mx-4 md:mx-auto">
-        <div class="container mx-auto px-4 md:px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">Solicitar Presupuesto</h2>
-            <p class="text-gray-700 mb-8 max-w-2xl mx-auto">
-                ¡Cuéntanos qué necesitas! Rellena el formulario y nos pondremos en contacto contigo para darte la mejor solución.
-            </p>
-            <form id="contact-form" class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-lg">
-                <div class="mb-6 text-left">
-                    <label for="nombre" class="block text-gray-700 text-sm font-semibold mb-2">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Tu nombre completo" required>
-                </div>
-                <div class="mb-6 text-left">
-                    <label for="correo" class="block text-gray-700 text-sm font-semibold mb-2">Correo Electrónico (opcional)</label>
-                    <input type="email" id="correo" name="correo" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="ej. tu@email.com">
-                </div>
-                <div class="mb-6 text-left">
-                    <label for="whatsapp" class="block text-gray-700 text-sm font-semibold mb-2">Número de WhatsApp (opcional)</label>
-                    <input type="tel" id="whatsapp" name="whatsapp" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="ej. +34 6XX XXX XXX">
-                </div>
-                <div class="mb-6 text-left">
-                    <label for="descripcion" class="block text-gray-700 text-sm font-semibold mb-2">Descripción del proyecto</label>
-                    <textarea id="descripcion" name="descripcion" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Cuéntanos con detalle qué tipo de arreglo o transformación necesitas."></textarea>
-                </div>
-                <!-- Sección "Adjuntar foto" eliminada según tu solicitud -->
-                <button type="submit" class="form-button w-full">
-                    Enviar solicitud
-                </button>
-                <p id="form-message" class="mt-4 text-green-600 font-semibold hidden"></p>
-            </form>
-            <p class="text-sm text-gray-600 mt-6">
-                Nos pondremos en contacto en menos de 24 h. ¡Prometido!
-            </p>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonios" class="py-12 md:py-16 rounded-xl shadow-md mx-4 md:mx-auto">
-        <div class="container mx-auto px-4 md:px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">Lo que dicen nuestros clientes</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Testimonial 1 -->
-                <div class="bg-pink-50 p-4 rounded-xl shadow-md flex flex-col items-center text-center">
-                    <img src="https://placehold.co/80x80/FFD1DC/333333?text=Ana" alt="Foto de Ana G." class="w-16 h-16 rounded-full object-cover mb-3 border-2 border-pink-300">
-                    <p class="text-gray-700 text-sm italic mb-3">
-                        "¡Increíble trabajo! Mi vestido favorito quedó como nuevo, incluso mejor. La atención al detalle es asombrosa y el trato, súper cercano. ¡Recomendadísimos!"
-                    </p>
-                    <p class="font-semibold text-pink-600 text-sm">- Ana G.</p>
-                </div>
-                <!-- Testimonial 2 -->
-                <div class="bg-pink-50 p-4 rounded-xl shadow-md flex flex-col items-center text-center">
-                    <img src="https://placehold.co/80x80/C3E0FF/333333?text=Carlos" alt="Foto de Carlos M." class="w-16 h-16 rounded-full object-cover mb-3 border-2 border-pink-300">
-                    <p class="text-gray-700 text-sm italic mb-3">
-                        "Necesitaba un arreglo urgente para una boda y me salvaron el día. Calidad, rapidez y una sonrisa. Da gusto encontrar profesionales así. ¡Gracias, Costura Latina!"
-                    </p>
-                    <p class="font-semibold text-pink-600 text-sm">- Carlos M.</p>
-                </div>
-                <!-- Testimonial 3 -->
-                <div class="bg-pink-50 p-4 rounded-xl shadow-md flex flex-col items-center text-center">
-                    <img src="https://placehold.co/80x80/FFFACD/333333?text=Maria" alt="Foto de María P." class="w-16 h-16 rounded-full object-cover mb-3 border-2 border-pink-300">
-                    <p class="text-gray-700 text-sm italic mb-3">
-                        "Llevé unos jeans para transformar y el resultado superó mis expectativas. Captaron mi idea a la perfección y le dieron un toque único. ¡Mi ropa ahora tiene personalidad!"
-                    </p>
-                    <p class="font-semibold text-pink-600 text-sm">- María P.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contacto" class="py-16 md:py-24 rounded-xl shadow-md mx-4 md:mx-auto">
-        <div class="container mx-auto px-4 md:px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">Contáctanos</h2>
-            <p class="text-gray-700 mb-8 max-w-2xl mx-auto">
-                ¿Listo para darle una nueva vida a tu ropa? ¡Estamos aquí para ayudarte!
-            </p>
-            <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
-                <div class="flex flex-col items-center">
-                    <p class="text-xl font-semibold text-pink-600 mb-2">Teléfono/WhatsApp:</p>
-                    <a href="https://wa.me/61430049118" target="_blank" class="text-gray-700 text-2xl hover:text-pink-600 transition duration-300 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone-call mr-2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/><path d="M14.5 4.05a5 5 0 0 0-6.5 6.5"/><path d="M17.8 7.2a9 9 0 0 0-10.6 10.6"/></svg>
-                        +61 430 049 118
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                    <a href="#contacto" class="pulse-button bg-yellow-400 text-gray-900 px-8 py-4 rounded-full text-lg font-bold hover:bg-yellow-300 transition transform hover:scale-105">
+                        🧵 Solicita tu Presupuesto GRATIS
                     </a>
+                    <div class="flex items-center text-sm opacity-80">
+                        <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                        Respuesta en menos de 24h
+                    </div>
                 </div>
-                <!-- Email section removed as requested -->
+                <div class="flex justify-center mb-12">
+                    <div class="bg-white bg-opacity-20 backdrop-blur-sm border border-white border-opacity-30 rounded-full px-6 py-2 text-sm font-medium">
+                        <span class="mr-2">✅</span> Garantía: Si no queda perfecto, lo ajustamos sin costo
+                    </div>
+                </div>
+                <div class="bg-red-600 bg-opacity-90 rounded-lg p-4 max-w-md mx-auto">
+                    <p class="text-sm font-medium">⚡ OFERTA LIMITADA: Solo 5 cupos disponibles esta semana</p>
+                </div>
             </div>
-            <!-- SECCIÓN DEL CÓDIGO QR ELIMINADA -->
-            <div class="mt-12">
-                <p class="text-xl font-semibold text-pink-600 mb-4">Síguenos en redes:</p>
-                <div class="flex justify-center space-x-6">
-                    <!-- Instagram Link Updated -->
-                    <a href="https://www.instagram.com/costura_latina_/" target="_blank" class="text-gray-700 hover:text-pink-600 transition duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.5" y1="6.5" y2="6.5"/></svg>
-                    </a>
-                    <!-- Facebook Link Updated -->
-                    <a href="https://www.facebook.com/profile.php?id=61575973637883" target="_blank" class="text-gray-700 hover:text-pink-600 transition duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                    </a>
+        </div>
+    </section>
+
+    <!-- BENEFICIOS -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                <div class="fade-in text-center">
+                    <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><span class="text-2xl">✂️</span></div>
+                    <h3 class="font-bold text-lg mb-2">Calidad Profesional</h3>
+                    <p class="text-gray-600 text-sm">Ajustes y arreglos con técnicas profesionales y 3 años de experiencia</p>
                 </div>
+                <div class="fade-in text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><span class="text-2xl">📍</span></div>
+                    <h3 class="font-bold text-lg mb-2">Ubicados en Gold Coast</h3>
+                    <p class="text-gray-600 text-sm">Fácil acceso y servicio local confiable en el corazón de Queensland</p>
+                </div>
+                <div class="fade-in text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><span class="text-2xl">⏱️</span></div>
+                    <h3 class="font-bold text-lg mb-2">Entregas Rápidas</h3>
+                    <p class="text-gray-600 text-sm">Entregas puntuales y servicios express para cuando lo necesites urgente</p>
+                </div>
+                <div class="fade-in text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><span class="text-2xl">💌</span></div>
+                    <h3 class="font-bold text-lg mb-2">Atención Personal</h3>
+                    <p class="text-gray-600 text-sm">Cada cliente es único. Te escuchamos y adaptamos a tus necesidades</p>
+                </div>
+            </div>
+            <div class="fade-in max-w-4xl mx-auto mt-12">
+                <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-6 text-center">
+                    <div class="flex items-center justify-center mb-2">
+                        <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">✓</span>
+                        <h3 class="text-xl font-bold text-green-800">Garantía de Satisfacción</h3>
+                    </div>
+                    <p class="text-green-700 font-medium">Si tu prenda no queda perfecta, la ajustamos nuevamente sin costo adicional</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRUEBA SOCIAL -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 text-center">
+            <div class="fade-in mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    Más de <span class="counter-animation" data-count="300">0</span> Prendas Transformadas
+                </h2>
+                <p class="text-gray-600 text-lg">La confianza de nuestros clientes es nuestro mejor aval</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="fade-in bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b2e30cb8?ixlib=rb-4.0.3&w=150&q=80" alt="Ana" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div class="text-left"><p class="font-semibold">Ana Rodríguez</p><div class="text-yellow-500 text-sm">⭐⭐⭐⭐⭐</div></div>
+                    </div>
+                    <p class="text-gray-700 italic">"Mi vestido de graduación quedó perfecto. El trabajo es impecable y el trato súper cercano. 100% recomendado."</p>
+                </div>
+                <div class="fade-in bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&w=150&q=80" alt="Carlos" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div class="text-left"><p class="font-semibold">Carlos Mendez</p><div class="text-yellow-500 text-sm">⭐⭐⭐⭐⭐</div></div>
+                    </div>
+                    <p class="text-gray-700 italic">"Arreglo urgente para mi uniforme laboral y me salvaron el día. Rapidez, calidad y precio justo. ¡Excelentes!"</p>
+                </div>
+                <div class="fade-in bg-white rounded-xl p-6 shadow-md">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&w=150&q=80" alt="María" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div class="text-left"><p class="font-semibold">María González</p><div class="text-yellow-500 text-sm">⭐⭐⭐⭐⭐</div></div>
+                    </div>
+                    <p class="text-gray-700 italic">"Transformaron mis jeans viejos en algo único. Volvieron a la Vida!. ¡Mi ropa tiene personalidad!"</p>
+                </div>
+            </div>
+            <div class="mt-12 flex flex-wrap justify-center items-center gap-8 opacity-60">
+                <div class="flex items-center"><span class="text-green-600 mr-2">✓</span><span class="text-sm">3+ años en Gold Coast</span></div>
+                <div class="flex items-center"><span class="text-green-600 mr-2">✓</span><span class="text-sm">Pago seguro</span></div>
+                <div class="flex items-center"><span class="text-green-600 mr-2">✓</span><span class="text-sm">Garantía de satisfacción</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="fade-in text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Transformaciones Reales</h2>
+                <p class="text-gray-600 text-lg">Cada prenda cuenta una historia de renovación</p>
+            </div>
+            <div class="slider-container max-w-6xl mx-auto">
+                <div class="slider-track" id="gallery-slider">
+                    <div class="slider-item bg-gray-100 rounded-xl overflow-hidden shadow-md">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&w=600&q=80" alt="Antes y después 1" class="w-full h-48 object-cover">
+                        <div class="p-4"><h4 class="font-semibold mb-2">Vestido de Gala Restaurado</h4><p class="text-sm text-gray-600">De vintage descosido a elegancia renovada</p></div>
+                    </div>
+                    <div class="slider-item bg-gray-100 rounded-xl overflow-hidden shadow-md">
+                        <img src="https://images.unsplash.com/photo-1541840031508-326b77c9a17e?ixlib=rb-4.0.3&w=600&q=80" alt="Antes y después 2" class="w-full h-48 object-cover">
+                        <div class="p-4"><h4 class="font-semibold mb-2">Chaqueta Profesional</h4><p class="text-sm text-gray-600">Ajuste perfecto para tu imagen profesional</p></div>
+                    </div>
+                    <div class="slider-item bg-gray-100 rounded-xl overflow-hidden shadow-md">
+                        <img src="https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&w=600&q=80" alt="Antes y después 3" class="w-full h-48 object-cover">
+                        <div class="p-4"><h4 class="font-semibold mb-2">Jeans Personalizados</h4><p class="text-sm text-gray-600">De básicos a únicos con bordados especiales</p></div>
+                    </div>
+                    <div class="slider-item bg-gray-100 rounded-xl overflow-hidden shadow-md">
+                        <img src="https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?ixlib=rb-4.0.3&w=600&q=80" alt="Antes y después 4" class="w-full h-48 object-cover">
+                        <div class="p-4"><h4 class="font-semibold mb-2">Uniforme Escolar</h4><p class="text-sm text-gray-600">Reparación completa, como nuevo</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <button onclick="scrollGallery(-1)" class="bg-pink-100 text-pink-600 p-2 rounded-full mr-4 hover:bg-pink-200 transition">←</button>
+                <button onclick="scrollGallery(1)" class="bg-pink-100 text-pink-600 p-2 rounded-full hover:bg-pink-200 transition">→</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="fade-in text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Nos Encuentras en Gold Coast</h2>
+                <p class="text-gray-600 text-lg">Visítanos o Contáctanos ahora mismo</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+                <div class="fade-in">
+                    <div class="bg-white rounded-xl p-8 shadow-md">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-800">¿Cómo trabajamos?</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="bg-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">1</div>
+                                <div><h4 class="font-semibold">Contáctanos</h4><p class="text-gray-600 text-sm">WhatsApp, formulario o visita directa</p></div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">2</div>
+                                <div><h4 class="font-semibold">Evaluamos tu prenda</h4><p class="text-gray-600 text-sm">Presupuesto gratuito y sin compromiso</p></div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">3</div>
+                                <div><h4 class="font-semibold">Trabajamos con amor</h4><p class="text-gray-600 text-sm">Cada puntada con máximo cuidado</p></div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">4</div>
+                                <div><h4 class="font-semibold">Entrega perfecta</h4><p class="text-gray-600 text-sm">Tu prenda renovada, lista para brillar</p></div>
+                            </div>
+                        </div>
+                        <div class="mt-8 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <p class="text-green-700 font-semibold text-center">Garantía 100%: Si no queda perfecto, lo volvemos a ajustar sin costo</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <div class="relative w-full h-80 rounded-xl overflow-hidden shadow-md">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d882.3397842479425!2d153.4308216!3d-27.9999017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b910573c9df50d7%3A0xdf26f6b34a5226a7!2sThe%20Sands%20Apartments!5e0!3m2!1sen!2sau!4v1699999999999!5m2!1sen!2sau"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                            title="Ubicación de Costura Latina en The Sands Apartments, Surfers Paradise">
+                        </iframe>
+                    </div>
+                    <div class="mt-6 space-y-3">
+                        <div class="flex items-center justify-center">
+                            <span class="text-pink-500 mr-2">📱</span>
+                            <a href="https://wa.me/61430049118" class="text-lg font-semibold hover:text-pink-600">+61 430 049 118</a>
+                        </div>
+                        <p class="text-center text-gray-600 text-sm">📍 The Sands Apartments, Surfers Paradise</p>
+                        <p class="text-center text-gray-600 text-sm">Horarios: Lun-Vie 9am-6pm | Sáb 10am-4pm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULARIO -->
+    <section id="contacto" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="fade-in max-w-2xl mx-auto text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Solicita tu Presupuesto Gratuito</h2>
+                <p class="text-gray-600 text-lg mb-8">Te contactaremos en menos de 24 horas con el mejor precio</p>
+                
+                <form id="contact-form" class="bg-gray-50 rounded-2xl p-8 shadow-lg" novalidate>
+                    <!-- Honeypot -->
+                    <div class="honeypot" aria-hidden="true">
+                        <label for="website">Website</label>
+                        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="text-left">
+                            <label class="block text-gray-700 font-medium mb-2">Nombre *</label>
+                            <input type="text" name="nombre" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent" aria-describedby="nombre-error">
+                            <div id="nombre-error" role="alert" class="text-red-600 text-sm mt-1 hidden"></div>
+                        </div>
+                        <div class="text-left">
+                            <label class="block text-gray-700 font-medium mb-2">WhatsApp * <span class="text-pink-600 text-xs font-normal">(Respondemos más rápido)</span></label>
+                            <input type="tel" name="whatsapp" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent" placeholder="+61..." aria-describedby="whatsapp-error">
+                            <div id="whatsapp-error" role="alert" class="text-red-600 text-sm mt-1 hidden"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-left mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Email *</label>
+                        <input type="email" name="correo" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent" aria-describedby="correo-error">
+                        <div id="correo-error" role="alert" class="text-red-600 text-sm mt-1 hidden"></div>
+                    </div>
+                    
+                    <div class="text-left mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">¿Qué necesitas arreglar? *</label>
+                        <textarea name="descripcion" rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent" placeholder="Ej: Dobladillo de pantalón, ajuste de vestido, reparación de costura..." aria-describedby="descripcion-error"></textarea>
+                        <div id="descripcion-error" role="alert" class="text-red-600 text-sm mt-1 hidden"></div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="flex items-start text-left text-sm text-gray-600 cursor-pointer">
+                            <input type="checkbox" id="consentimiento" name="consentimiento" required class="mt-1 mr-3 h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded" aria-describedby="consentimiento-error">
+                            <span>
+                                Acepto recibir el correo de bienvenida y comunicaciones de Costura Latina. 
+                                <a href="#politica-privacidad" class="text-pink-600 hover:text-pink-700 underline">Política de privacidad</a>
+                            </span>
+                        </label>
+                        <div id="consentimiento-error" role="alert" class="text-red-600 text-sm mt-1 hidden"></div>
+                    </div>
+                    
+                    <button type="submit" id="submit-button" class="w-full bg-gray-400 text-white py-4 px-8 rounded-lg text-lg font-bold transition transform cursor-not-allowed" disabled>
+                        🧵 Solicitar Presupuesto GRATIS
+                    </button>
+                    
+                    <p class="text-xs text-gray-500 mt-4">
+                        Al marcar el checkbox, aceptas recibir comunicaciones de Costura Latina por email y WhatsApp. 
+                        No compartimos tu información con terceros.
+                    </p>
+                </form>
+                
+                <div id="form-message" class="mt-4 hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CIERRE -->
+    <section class="py-16 bg-pink-600 text-white text-center">
+        <div class="container mx-auto px-4">
+            <div class="fade-in max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">No dejes que tu prenda favorita se pierda</h2>
+                <p class="text-xl mb-8 opacity-90">Arreglarla es más fácil de lo que crees. Cada costura cuenta una historia, cada ajuste devuelve la confianza.</p>
+                <a href="#contacto" class="inline-block bg-yellow-400 text-gray-900 px-8 py-4 rounded-full text-lg font-bold hover:bg-yellow-300 transition transform hover:scale-105">
+                    Recupera tu Prenda Favorita Ahora
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-10 rounded-t-xl shadow-lg">
-        <div class="container mx-auto px-4 md:px-6 text-center">
-            <a href="#" class="text-xl font-bold text-pink-400 tracking-wide mb-4 inline-block">Costura Latina</a>
-            <nav class="flex flex-wrap justify-center gap-4 text-sm mb-6">
-                <a href="#sobre-nosotros" class="text-gray-300 hover:text-pink-400 transition duration-300">Sobre Nosotros</a>
-                <a href="#servicios" class="text-gray-300 hover:text-pink-400 transition duration-300">Servicios</a>
-                <a href="#presupuesto" class="text-gray-300 hover:text-pink-400 transition duration-300">Solicitar Presupuesto</a>
-                <li><a href="#contacto" class="text-gray-700 hover:text-pink-600 transition duration-300">Contacto</a></li>
-                <a href="#" class="text-gray-300 hover:text-pink-400 transition duration-300">Aviso de Privacidad</a>
-            </nav>
-            <p class="text-gray-400 text-sm">
-                &copy; 2025 Costura Latina. Todos los derechos reservados.
-            </p>
-            <p class="text-gray-400 text-sm mt-2">
-                (Costura Latina: +61 430 049 118)
-            </p>
+    <footer class="bg-gray-800 text-white py-8 text-center">
+        <div class="container mx-auto px-4">
+            <div class="mb-6">
+                <div class="text-2xl font-bold text-pink-400 mb-2">Costura Latina</div>
+                <p class="text-gray-400 text-sm">Confianza, detalle y calidad hechos a mano</p>
+            </div>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="https://www.instagram.com/costura_latina_/" target="_blank" class="text-gray-400 hover:text-pink-400 transition" aria-label="Instagram">@</a>
+                <a href="https://www.facebook.com/profile.php?id=61575973637883" target="_blank" class="text-gray-400 hover:text-pink-400 transition" aria-label="Facebook">f</a>
+                <a href="https://wa.me/61430049118" target="_blank" class="text-gray-400 hover:text-pink-400 transition" aria-label="WhatsApp">WA</a>
+            </div>
+            <div class="text-gray-400 text-sm space-y-1">
+                <p>&copy; 2025 Costura Latina. Todos los derechos reservados.</p>
+                <p>Gold Coast, Queensland, Australia | +61 430 049 118</p>
+            </div>
         </div>
     </footer>
 
-    <!-- Supabase CDN (incluye @supabase/supabase-js) -->
-    <!-- Este script DEBE cargarse antes de tu script principal que usa 'Supabase' -->
+    <!-- WhatsApp sticky -->
+    <a href="https://wa.me/61430049118" class="whatsapp-sticky" target="_blank" rel="noopener" aria-label="Chatear por WhatsApp">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+        WhatsApp
+    </a>
+
+    <!-- Supabase UMD -->
     <script src="https://unpkg.com/@supabase/supabase-js@2.44.0/dist/umd/supabase.min.js"></script>
-
     <script>
-        // Define las claves de Supabase
-        const SUPABASE_URL = 'https://fnasihlmuuqwyyupgbyq.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZuYXNpaGxtdXVxd3l5dXBnYnlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NjgwNjIsImV4cCI6MjA3MDM0NDA2Mn0.1C8nhMztjrmldhho7oQXcTgzhxuowYHR9_zwZoqe6Hk';
-        let supabaseClient; // Declarada en el ámbito global para esta sección de script
+        // === Supabase Configuration (con tus datos) ===
+        const SUPABASE_URL = 'https://fnasihlmuuqwyyupgbyq.supabase.co'; // ✅ TU URL
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZuYXNpaGxtdXVxd3l5dXBnYnlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NjgwNjIsImV4cCI6MjA3MDM0NDA2Mn0.1C8nhMztjrmldhho7oQXcTgzhxuowYHR9_zwZoqe6Hk'; // ✅ TU anon key
+        let supabaseClient;
 
-        // Esperar a que el DOM esté completamente cargado antes de adjuntar listeners
-        // de eventos o manipular elementos del DOM, y también para inicializar Supabase.
-        document.addEventListener('DOMContentLoaded', () => {
-            // Inicializa Supabase SOLO si la biblioteca global Supabase está definida.
-            // La biblioteca Supabase debería haber sido cargada por el script CDN en el <head>.
-            if (typeof Supabase !== 'undefined') {
-                supabaseClient = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                console.log('Supabase client inicializado correctamente dentro de DOMContentLoaded.');
+        document.addEventListener('DOMContentLoaded', function() {
+            // FIX A: global correcto en UMD es "supabase" (minúscula)
+            if (typeof supabase !== 'undefined') {
+                supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             } else {
-                console.error('Error: Supabase NO está definido cuando DOMContentLoaded se activó. Esto indica un problema con la descarga o ejecución del CDN.');
-                return; // Salir de la función si Supabase no está disponible para evitar más errores.
+                console.error('No se cargó supabase UMD');
             }
 
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(a=>{
+                a.addEventListener('click', e=>{
+                    const t = document.querySelector(a.getAttribute('href'));
+                    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
                 });
             });
 
-            // Mobile menu functionality
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const closeMobileMenuButton = document.getElementById('close-mobile-menu');
+            // Fade-in on scroll
+            const io = new IntersectionObserver(entries=>{
+                entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('visible'); }});
+            }, {threshold:0.1, rootMargin:'0px 0px -50px 0px'});
+            document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
 
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.remove('hidden');
+            // Counter
+            function animateCounter(){
+                const el = document.querySelector('[data-count]'); if(!el) return;
+                const target = parseInt(el.dataset.count); let current=0; const step = target/100;
+                const timer = setInterval(()=>{ current+=step; el.textContent = Math.floor(current);
+                    if(current>=target){ el.textContent = target + '+'; clearInterval(timer); }
+                },20);
+            }
+            const co = new IntersectionObserver(es=>{
+                es.forEach(e=>{ if(e.isIntersecting){ animateCounter(); co.unobserve(e.target); }});
+            });
+            const ce = document.querySelector('[data-count]'); if(ce){ co.observe(ce); }
+
+            // Form
+            const form = document.getElementById('contact-form');
+            const submitButton = document.getElementById('submit-button');
+            const consentimientoCheckbox = document.getElementById('consentimiento');
+            const formMessage = document.getElementById('form-message');
+
+            function toggleSubmitButton(){
+                if(consentimientoCheckbox.checked){
+                    submitButton.disabled=false;
+                    submitButton.classList.remove('bg-gray-400','cursor-not-allowed');
+                    submitButton.classList.add('bg-pink-600','hover:bg-pink-700','hover:scale-105','pulse-button');
+                }else{
+                    submitButton.disabled=true;
+                    submitButton.classList.add('bg-gray-400','cursor-not-allowed');
+                    submitButton.classList.remove('bg-pink-600','hover:bg-pink-700','hover:scale-105','pulse-button');
+                }
+            }
+            consentimientoCheckbox.addEventListener('change', toggleSubmitButton);
+
+            function showFieldError(name,msg){
+                const err = document.getElementById(name+'-error');
+                const field = document.querySelector(`[name="${name}"]`);
+                if(err && field){ err.textContent=msg; err.classList.remove('hidden'); field.classList.add('border-red-500'); field.setAttribute('aria-invalid','true'); }
+            }
+            function clearFieldError(name){
+                const err = document.getElementById(name+'-error');
+                const field = document.querySelector(`[name="${name}"]`);
+                if(err && field){ err.classList.add('hidden'); field.classList.remove('border-red-500'); field.removeAttribute('aria-invalid'); }
+            }
+            ['nombre','whatsapp','correo','descripcion'].forEach(n=>{
+                const f = document.querySelector(`[name="${n}"]`); if(f){ f.addEventListener('input',()=>clearFieldError(n)); }
             });
 
-            closeMobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-
-            // Close mobile menu when a link is clicked
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                });
-            });
-
-            document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            form.addEventListener('submit', async (e)=>{
                 e.preventDefault();
 
-                const form = e.target;
-                const formMessage = document.getElementById('form-message');
-                const submitButton = form.querySelector('button[type="submit"]');
+                ['nombre','whatsapp','correo','descripcion','consentimiento'].forEach(clearFieldError);
+                const fd = new FormData(form);
+                const honeypot = fd.get('website');
+                if(honeypot && honeypot.trim()!==''){
+                    formMessage.innerHTML = `<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">Error al procesar. Intenta de nuevo.</div>`;
+                    formMessage.classList.remove('hidden');
+                    submitButton.disabled=false; submitButton.innerHTML='🧵 Solicitar Presupuesto GRATIS';
+                    return;
+                }
 
-                // Show loading message
-                formMessage.textContent = 'Enviando...';
-                formMessage.classList.remove('hidden', 'text-green-600', 'text-red-600');
-                formMessage.classList.add('text-gray-600');
-                submitButton.disabled = true; // Disable button to prevent multiple submissions
+                let hasErrors=false;
+                if(!fd.get('nombre')?.trim()){ showFieldError('nombre','Por favor, ingresa tu nombre'); hasErrors=true; }
+                if(!fd.get('whatsapp')?.trim()){ showFieldError('whatsapp','Por favor, ingresa tu número de WhatsApp'); hasErrors=true; }
+                const email = fd.get('correo')?.trim();
+                if(!email){ showFieldError('correo','Por favor, ingresa tu email'); hasErrors=true; }
+                else { const re=/^[^\s@]+@[^\s@]+\.[^\s@]+$/; if(!re.test(email)){ showFieldError('correo','Por favor, ingresa un email válido'); hasErrors=true; } }
+                if(!fd.get('descripcion')?.trim()){ showFieldError('descripcion','Por favor, describe qué necesitas arreglar'); hasErrors=true; }
+                if(!consentimientoCheckbox.checked){
+                    const err=document.getElementById('consentimiento-error');
+                    err.textContent='Debes aceptar recibir comunicaciones para continuar';
+                    err.classList.remove('hidden'); hasErrors=true;
+                }
+                if(hasErrors) return;
 
-                // Get form data
-                const formData = new FormData(form);
-                const nombre = formData.get('nombre');
-                const correo = formData.get('correo');
-                const whatsapp = formData.get('whatsapp');
-                const descripcion = formData.get('descripcion');
+                formMessage.innerHTML = '<div class="text-gray-600 font-medium">Enviando solicitud...</div>';
+                formMessage.classList.remove('hidden');
+                submitButton.disabled=true; submitButton.innerHTML='⏳ Enviando...';
 
-                // Debugging: Log the data being sent
-                console.log('Enviando datos a Supabase:', { nombre, correo, whatsapp, descripcion });
+                // Construir registro para tabla "messages"
+                const payload = {
+                    name: (fd.get('nombre') || '').toString().slice(0,120),
+                    email: email.toString().slice(0,200),
+                    message: (`WhatsApp: ${fd.get('whatsapp') || ''} — ${fd.get('descripcion') || ''}`).toString().slice(0,1000),
+                    user_agent: navigator.userAgent.slice(0,500)
+                };
 
-                // Send data to Supabase
-                try {
-                    // Verificación adicional para asegurar que 'supabaseClient' está definido antes de usarlo.
-                    if (!supabaseClient) {
-                        throw new Error("El cliente de Supabase no se inicializó correctamente. Por favor, revisa errores de carga del CDN.");
-                    }
-                    
-                    const { data, error } = await supabaseClient
-                        .from('solicitudes_presupuesto') // Nombre de tu tabla en Supabase
-                        .insert([
-                            { nombre: nombre, correo: correo, whatsapp: whatsapp, descripcion: descripcion }
-                        ])
-                        .select(); // Añadir .select() para obtener los datos insertados en la respuesta
+                try{
+                    if(!supabaseClient) throw new Error('Error de configuración del sistema');
+                    // FIX B: insertar en "messages" (tabla con RLS insert-only)
+                    const { error } = await supabaseClient.from('messages').insert([payload]);
+                    if(error) throw error;
 
-                    if (error) {
-                        // Log more detailed error from Supabase
-                        console.error('Error de Supabase al insertar:', error);
-                        formMessage.textContent = `Hubo un problema al enviar tu solicitud: ${error.message}. Por favor, revisa la consola para más detalles.`;
-                        formMessage.classList.remove('text-gray-600', 'text-green-600');
-                        formMessage.classList.add('text-red-600');
-                    } else {
-                        console.log('Datos insertados con éxito:', data); // Log the successful data
-                        formMessage.textContent = '¡Tu solicitud ha sido enviada con éxito! Nos pondremos en contacto pronto.';
-                        formMessage.classList.remove('text-gray-600', 'text-red-600');
-                        formMessage.classList.add('text-green-600');
-                        form.reset(); // Clear the form on success
-                    }
-
-                } catch (error) {
-                    // This catch block will now catch network errors AND errors thrown from Supabase
-                    console.error('Error general al enviar el formulario (catch):', error);
-                    formMessage.textContent = `Error de conexión o del servidor: ${error.message}. Asegúrate de tener acceso a internet e intenta de nuevo.`;
-                    formMessage.classList.remove('text-gray-600', 'text-green-600');
-                    formMessage.classList.add('text-red-600');
-                } finally {
-                    submitButton.disabled = false; // Re-enable button
-                    setTimeout(() => {
-                        formMessage.classList.add('hidden');
-                    }, 5000); // Hide message after 5 seconds
+                    formMessage.innerHTML = `<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded"><strong>¡Perfecto!</strong> Tu solicitud ha sido enviada. Te contactaremos en menos de 24 horas al ${fd.get('whatsapp')}</div>`;
+                    form.reset(); toggleSubmitButton();
+                }catch(err){
+                    console.error(err);
+                    formMessage.innerHTML = `<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"><strong>Oops!</strong> Hubo un problema. Por favor, contáctanos al <a href="https://wa.me/61430049118" class="underline">+61 430 049 118</a></div>`;
+                }finally{
+                    submitButton.disabled=false; submitButton.innerHTML='🧵 Solicitar Presupuesto GRATIS';
+                    setTimeout(()=>{ formMessage.classList.add('hidden'); formMessage.innerHTML=''; }, 10000);
                 }
             });
         });
+
+        // Slider
+        let currentSlide = 0;
+        const slideWidth = 320;
+        function scrollGallery(direction){
+            const slider = document.getElementById('gallery-slider');
+            const maxSlides = slider.children.length - Math.floor(slider.parentElement.offsetWidth / slideWidth);
+            currentSlide += direction;
+            if(currentSlide<0) currentSlide=0;
+            if(currentSlide>maxSlides) currentSlide=maxSlides;
+            slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+        }
+        setInterval(()=>{
+            scrollGallery(1);
+            if(currentSlide >= document.getElementById('gallery-slider').children.length - 2){ currentSlide = -1; }
+        },5000);
     </script>
 </body>
 </html>
