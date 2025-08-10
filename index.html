@@ -10,54 +10,145 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        body { font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
         .hero-bg {
-            background: linear-gradient(135deg, rgba(236, 72, 153, 0.9), rgba(219, 39, 119, 0.8)),
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.9), rgba(219, 39, 119, 0.8)), 
                         url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover; background-position: center; background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
-        @media (max-width: 768px) { .hero-bg { background-attachment: scroll; } }
-        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .pulse-button { animation: pulse 2s infinite; }
-        @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(236,72,153,.7)} 70%{box-shadow:0 0 0 10px rgba(236,72,153,0)} 100%{box-shadow:0 0 0 0 rgba(236,72,153,0)}}
-        .slider-container { overflow: hidden; position: relative; }
-        .slider-track { display: flex; transition: transform .5s ease; }
-        .slider-item { min-width: 300px; margin-right: 20px; }
-        .counter-animation { font-weight: 700; color: #ec4899; }
-        .honeypot { position: absolute; left: -9999px; top: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; tab-index: -1; }
+        
+        /* Desactivar background-attachment fixed en móviles para evitar jank */
+        @media (max-width: 768px) {
+            .hero-bg {
+                background-attachment: scroll;
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .pulse-button {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(236, 72, 153, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+        }
+        
+        .slider-container {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .slider-item {
+            min-width: 300px;
+            margin-right: 20px;
+        }
+        
+        .counter-animation {
+            font-weight: 700;
+            color: #ec4899;
+        }
+        
+        /* Honeypot styling - Campo invisible pero accesible para bots */
+        .honeypot {
+            position: absolute;
+            left: -9999px;
+            top: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* CTA sticky de WhatsApp solo en móvil */
         .whatsapp-sticky {
-            position: fixed; bottom: 20px; right: 20px; z-index: 40;
-            background: #25D366; color: white; border-radius: 50px; padding: 12px 16px;
-            box-shadow: 0 4px 12px rgba(37,211,102,.4); transition: all .3s ease; display: flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 600; font-size: 14px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 40;
+            background: #25D366;
+            color: white;
+            border-radius: 50px;
+            padding: 12px 16px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
         }
-        .whatsapp-sticky:hover { background: #20BA5A; transform: scale(1.05); box-shadow: 0 6px 16px rgba(37,211,102,.5); }
-        @media (min-width: 768px) { .whatsapp-sticky { display: none; } }
-        @media (max-width: 767px) { #contact-form { margin-bottom: 80px; } }
+        
+        .whatsapp-sticky:hover {
+            background: #20BA5A;
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(37, 211, 102, 0.5);
+        }
+        
+        /* Solo visible en móvil */
+        @media (min-width: 768px) {
+            .whatsapp-sticky {
+                display: none;
+            }
+        }
+        
+        /* Margen inferior para evitar superposición con formulario */
+        @media (max-width: 767px) {
+            #contact-form {
+                margin-bottom: 80px;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50">
 
-    <!-- Header -->
+    <!-- Header Simplificado -->
     <header class="bg-white shadow-sm fixed top-0 w-full z-50">
         <nav class="container mx-auto flex justify-between items-center px-4 py-3">
             <div class="text-2xl font-bold text-pink-600">Costura Latina</div>
             <div class="flex items-center space-x-6">
                 <span class="text-sm text-gray-600 hidden md:block">📍 Gold Coast, QLD</span>
-                <a href="#contacto" class="bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-pink-700 transition">Solicitar Presupuesto</a>
+                <a href="#contacto" class="bg-pink-600 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-pink-700 transition">
+                    Solicitar Presupuesto
+                </a>
             </div>
         </nav>
     </header>
 
-    <!-- HERO -->
+    <!-- 1. HERO IMPACTANTE -->
     <section class="hero-bg min-h-screen flex items-center justify-center text-center text-white pt-16">
         <div class="container mx-auto px-4 max-w-4xl">
             <div class="fade-in">
                 <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-                    Arreglos de Ropa con<br><span class="text-yellow-300">Amor y Precisión</span>
+                    Arreglos de Ropa con<br>
+                    <span class="text-yellow-300">Amor y Precisión</span>
                 </h1>
                 <p class="text-xl md:text-2xl mb-8 opacity-90 max-w-2xl mx-auto">
-                    Recupera tus prendas favoritas y dales una segunda vida. Cada puntada cuenta tu historia.
+                    Recupera tus prendas favoritas y dales una segunda vida. 
+                    Cada puntada cuenta tu historia.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
                     <a href="#contacto" class="pulse-button bg-yellow-400 text-gray-900 px-8 py-4 rounded-full text-lg font-bold hover:bg-yellow-300 transition transform hover:scale-105">
@@ -68,56 +159,78 @@
                         Respuesta en menos de 24h
                     </div>
                 </div>
+                
+                <!-- Garantía en Hero -->
                 <div class="flex justify-center mb-12">
                     <div class="bg-white bg-opacity-20 backdrop-blur-sm border border-white border-opacity-30 rounded-full px-6 py-2 text-sm font-medium">
-                        <span class="mr-2">✅</span> Garantía: Si no queda perfecto, lo ajustamos sin costo
+                        <span class="mr-2">✅</span>
+                        Garantía: Si no queda perfecto, lo ajustamos sin costo
                     </div>
                 </div>
+                
+                <!-- Urgencia -->
                 <div class="bg-red-600 bg-opacity-90 rounded-lg p-4 max-w-md mx-auto">
-                    <p class="text-sm font-medium">⚡ OFERTA LIMITADA: Solo 5 cupos disponibles esta semana</p>
+                    <p class="text-sm font-medium">
+                        ⚡ OFERTA LIMITADA: Solo 5 cupos disponibles esta semana
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- BENEFICIOS -->
+    <!-- 2. BENEFICIOS INMEDIATOS -->
     <section class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
                 <div class="fade-in text-center">
-                    <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><span class="text-2xl">✂️</span></div>
+                    <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">✂️</span>
+                    </div>
                     <h3 class="font-bold text-lg mb-2">Calidad Profesional</h3>
                     <p class="text-gray-600 text-sm">Ajustes y arreglos con técnicas profesionales y 3 años de experiencia</p>
                 </div>
+                
                 <div class="fade-in text-center">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><span class="text-2xl">📍</span></div>
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">📍</span>
+                    </div>
                     <h3 class="font-bold text-lg mb-2">Ubicados en Gold Coast</h3>
                     <p class="text-gray-600 text-sm">Fácil acceso y servicio local confiable en el corazón de Queensland</p>
                 </div>
+                
                 <div class="fade-in text-center">
-                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><span class="text-2xl">⏱️</span></div>
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">⏱️</span>
+                    </div>
                     <h3 class="font-bold text-lg mb-2">Entregas Rápidas</h3>
                     <p class="text-gray-600 text-sm">Entregas puntuales y servicios express para cuando lo necesites urgente</p>
                 </div>
+                
                 <div class="fade-in text-center">
-                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"><span class="text-2xl">💌</span></div>
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">💌</span>
+                    </div>
                     <h3 class="font-bold text-lg mb-2">Atención Personal</h3>
                     <p class="text-gray-600 text-sm">Cada cliente es único. Te escuchamos y adaptamos a tus necesidades</p>
                 </div>
             </div>
+            
+            <!-- Garantía en Servicios -->
             <div class="fade-in max-w-4xl mx-auto mt-12">
                 <div class="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-2xl p-6 text-center">
                     <div class="flex items-center justify-center mb-2">
                         <span class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">✓</span>
                         <h3 class="text-xl font-bold text-green-800">Garantía de Satisfacción</h3>
                     </div>
-                    <p class="text-green-700 font-medium">Si tu prenda no queda perfecta, la ajustamos nuevamente sin costo adicional</p>
+                    <p class="text-green-700 font-medium">
+                        Si tu prenda no queda perfecta, la ajustamos nuevamente sin costo adicional
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PRUEBA SOCIAL -->
+    <!-- 3. PRUEBA SOCIAL -->
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4 text-center">
             <div class="fade-in mb-12">
@@ -126,64 +239,119 @@
                 </h2>
                 <p class="text-gray-600 text-lg">La confianza de nuestros clientes es nuestro mejor aval</p>
             </div>
+            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                 <div class="fade-in bg-white rounded-xl p-6 shadow-md">
                     <div class="flex items-center mb-4">
-                        <img src="https://images.unsplash.com/photo-1494790108755-2616b2e30cb8?ixlib=rb-4.0.3&w=150&q=80" alt="Ana" class="w-12 h-12 rounded-full object-cover mr-4">
-                        <div class="text-left"><p class="font-semibold">Ana Rodríguez</p><div class="text-yellow-500 text-sm">⭐⭐⭐⭐⭐</div></div>
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b2e30cb8?ixlib=rb-4.0.3&w=150&q=80" 
+                             alt="Ana" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div class="text-left">
+                            <p class="font-semibold">Ana Rodríguez</p>
+                            <div class="text-yellow-500 text-sm">⭐⭐⭐⭐⭐</div>
+                        </div>
                     </div>
-                    <p class="text-gray-700 italic">"Mi vestido de graduación quedó perfecto. El trabajo es impecable y el trato súper cercano. 100% recomendado."</p>
+                    <p class="text-gray-700 italic">
+                        "Mi vestido de graduación quedó perfecto. El trabajo es impecable y el trato súper cercano. 100% recomendado."
+                    </p>
                 </div>
+                
                 <div class="fade-in bg-white rounded-xl p-6 shadow-md">
                     <div class="flex items-center mb-4">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&w=150&q=80" alt="Carlos" class="w-12 h-12 rounded-full object-cover mr-4">
-                        <div class="text-left"><p class="font-semibold">Carlos Mendez</p><div class="text-yellow-500 text-sm">⭐⭐⭐⭐⭐</div></div>
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&w=150&q=80" 
+                             alt="Carlos" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div class="text-left">
+                            <p class="font-semibold">Carlos Mendez</p>
+                            <div class="text-yellow-500 text-sm">⭐⭐⭐⭐⭐</div>
+                        </div>
                     </div>
-                    <p class="text-gray-700 italic">"Arreglo urgente para mi uniforme laboral y me salvaron el día. Rapidez, calidad y precio justo. ¡Excelentes!"</p>
+                    <p class="text-gray-700 italic">
+                        "Arreglo urgente para una boda y me salvaron el día. Rapidez, calidad y precio justo. ¡Excelentes!"
+                    </p>
                 </div>
+                
                 <div class="fade-in bg-white rounded-xl p-6 shadow-md">
                     <div class="flex items-center mb-4">
-                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&w=150&q=80" alt="María" class="w-12 h-12 rounded-full object-cover mr-4">
-                        <div class="text-left"><p class="font-semibold">María González</p><div class="text-yellow-500 text-sm">⭐⭐⭐⭐⭐</div></div>
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&w=150&q=80" 
+                             alt="María" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div class="text-left">
+                            <p class="font-semibold">María González</p>
+                            <div class="text-yellow-500 text-sm">⭐⭐⭐⭐⭐</div>
+                        </div>
                     </div>
-                    <p class="text-gray-700 italic">"Transformaron mis jeans viejos en algo único. Volvieron a la Vida!. ¡Mi ropa tiene personalidad!"</p>
+                    <p class="text-gray-700 italic">
+                        "Transformaron mis jeans viejos en algo único. Captaron mi idea perfectamente. ¡Mi ropa tiene personalidad!"
+                    </p>
                 </div>
             </div>
+            
+            <!-- Confianza adicional -->
             <div class="mt-12 flex flex-wrap justify-center items-center gap-8 opacity-60">
-                <div class="flex items-center"><span class="text-green-600 mr-2">✓</span><span class="text-sm">3+ años en Gold Coast</span></div>
-                <div class="flex items-center"><span class="text-green-600 mr-2">✓</span><span class="text-sm">Pago seguro</span></div>
-                <div class="flex items-center"><span class="text-green-600 mr-2">✓</span><span class="text-sm">Garantía de satisfacción</span></div>
+                <div class="flex items-center">
+                    <span class="text-green-600 mr-2">✓</span>
+                    <span class="text-sm">3+ años en Gold Coast</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-green-600 mr-2">✓</span>
+                    <span class="text-sm">Pago seguro</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-green-600 mr-2">✓</span>
+                    <span class="text-sm">Garantía de satisfacción</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- GALERÍA -->
+    <!-- 4. GALERÍA ANTES Y DESPUÉS -->
     <section class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="fade-in text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Transformaciones Reales</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    Transformaciones Reales
+                </h2>
                 <p class="text-gray-600 text-lg">Cada prenda cuenta una historia de renovación</p>
             </div>
+            
             <div class="slider-container max-w-6xl mx-auto">
                 <div class="slider-track" id="gallery-slider">
                     <div class="slider-item bg-gray-100 rounded-xl overflow-hidden shadow-md">
-                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&w=600&q=80" alt="Antes y después 1" class="w-full h-48 object-cover">
-                        <div class="p-4"><h4 class="font-semibold mb-2">Vestido de Gala Restaurado</h4><p class="text-sm text-gray-600">De vintage descosido a elegancia renovada</p></div>
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&w=600&q=80" 
+                             alt="Antes y después 1" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h4 class="font-semibold mb-2">Vestido de Gala Restaurado</h4>
+                            <p class="text-sm text-gray-600">De vintage descosido a elegancia renovada</p>
+                        </div>
                     </div>
+                    
                     <div class="slider-item bg-gray-100 rounded-xl overflow-hidden shadow-md">
-                        <img src="https://images.unsplash.com/photo-1541840031508-326b77c9a17e?ixlib=rb-4.0.3&w=600&q=80" alt="Antes y después 2" class="w-full h-48 object-cover">
-                        <div class="p-4"><h4 class="font-semibold mb-2">Chaqueta Profesional</h4><p class="text-sm text-gray-600">Ajuste perfecto para tu imagen profesional</p></div>
+                        <img src="https://images.unsplash.com/photo-1541840031508-326b77c9a17e?ixlib=rb-4.0.3&w=600&q=80" 
+                             alt="Antes y después 2" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h4 class="font-semibold mb-2">Chaqueta Profesional</h4>
+                            <p class="text-sm text-gray-600">Ajuste perfecto para tu imagen profesional</p>
+                        </div>
                     </div>
+                    
                     <div class="slider-item bg-gray-100 rounded-xl overflow-hidden shadow-md">
-                        <img src="https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&w=600&q=80" alt="Antes y después 3" class="w-full h-48 object-cover">
-                        <div class="p-4"><h4 class="font-semibold mb-2">Jeans Personalizados</h4><p class="text-sm text-gray-600">De básicos a únicos con bordados especiales</p></div>
+                        <img src="https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&w=600&q=80" 
+                             alt="Antes y después 3" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h4 class="font-semibold mb-2">Jeans Personalizados</h4>
+                            <p class="text-sm text-gray-600">De básicos a únicos con bordados especiales</p>
+                        </div>
                     </div>
+                    
                     <div class="slider-item bg-gray-100 rounded-xl overflow-hidden shadow-md">
-                        <img src="https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?ixlib=rb-4.0.3&w=600&q=80" alt="Antes y después 4" class="w-full h-48 object-cover">
-                        <div class="p-4"><h4 class="font-semibold mb-2">Uniforme Escolar</h4><p class="text-sm text-gray-600">Reparación completa, como nuevo</p></div>
+                        <img src="https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?ixlib=rb-4.0.3&w=600&q=80" 
+                             alt="Antes y después 4" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h4 class="font-semibold mb-2">Uniforme Escolar</h4>
+                            <p class="text-sm text-gray-600">Reparación completa, como nuevo</p>
+                        </div>
                     </div>
                 </div>
             </div>
+            
             <div class="text-center mt-8">
                 <button onclick="scrollGallery(-1)" class="bg-pink-100 text-pink-600 p-2 rounded-full mr-4 hover:bg-pink-200 transition">←</button>
                 <button onclick="scrollGallery(1)" class="bg-pink-100 text-pink-600 p-2 rounded-full hover:bg-pink-200 transition">→</button>
@@ -191,121 +359,159 @@
         </div>
     </section>
 
-    <!-- UBICACIÓN -->
+    <!-- 5. UBICACIÓN Y CONFIANZA -->
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="fade-in text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Nos Encuentras en Gold Coast</h2>
-                <p class="text-gray-600 text-lg">Visítanos o Contáctanos ahora mismo</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    Nos Encuentras en Gold Coast
+                </h2>
+                <p class="text-gray-600 text-lg">Visítanos o envíanos tu prenda desde cualquier parte de Australia</p>
             </div>
+            
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
                 <div class="fade-in">
                     <div class="bg-white rounded-xl p-8 shadow-md">
                         <h3 class="text-2xl font-bold mb-6 text-gray-800">¿Cómo trabajamos?</h3>
+                        
                         <div class="space-y-4">
                             <div class="flex items-start">
                                 <div class="bg-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">1</div>
-                                <div><h4 class="font-semibold">Contáctanos</h4><p class="text-gray-600 text-sm">WhatsApp, formulario o visita directa</p></div>
+                                <div>
+                                    <h4 class="font-semibold">Contáctanos</h4>
+                                    <p class="text-gray-600 text-sm">WhatsApp, formulario o visita directa</p>
+                                </div>
                             </div>
+                            
                             <div class="flex items-start">
                                 <div class="bg-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">2</div>
-                                <div><h4 class="font-semibold">Evaluamos tu prenda</h4><p class="text-gray-600 text-sm">Presupuesto gratuito y sin compromiso</p></div>
+                                <div>
+                                    <h4 class="font-semibold">Evaluamos tu prenda</h4>
+                                    <p class="text-gray-600 text-sm">Presupuesto gratuito y sin compromiso</p>
+                                </div>
                             </div>
+                            
                             <div class="flex items-start">
                                 <div class="bg-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">3</div>
-                                <div><h4 class="font-semibold">Trabajamos con amor</h4><p class="text-gray-600 text-sm">Cada puntada con máximo cuidado</p></div>
+                                <div>
+                                    <h4 class="font-semibold">Trabajamos con amor</h4>
+                                    <p class="text-gray-600 text-sm">Cada puntada con máximo cuidado</p>
+                                </div>
                             </div>
+                            
                             <div class="flex items-start">
                                 <div class="bg-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">4</div>
-                                <div><h4 class="font-semibold">Entrega perfecta</h4><p class="text-gray-600 text-sm">Tu prenda renovada, lista para brillar</p></div>
+                                <div>
+                                    <h4 class="font-semibold">Entrega perfecta</h4>
+                                    <p class="text-gray-600 text-sm">Tu prenda renovada, lista para brillar</p>
+                                </div>
                             </div>
                         </div>
+                        
                         <div class="mt-8 p-4 bg-green-50 rounded-lg border border-green-200">
-                            <p class="text-green-700 font-semibold text-center">Garantía 100%: Si no queda perfecto, lo volvemos a ajustar sin costo</p>
+                            <p class="text-green-700 font-semibold text-center">
+                                💯 Garantía: Si no queda perfecto, lo volvemos a ajustar sin costo
+                            </p>
                         </div>
                     </div>
                 </div>
+                
                 <div class="fade-in">
+                    <!-- Google Maps embed real de The Sands Apartments, Surfers Paradise -->
                     <div class="relative w-full h-80 rounded-xl overflow-hidden shadow-md">
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d882.3397842479425!2d153.4308216!3d-27.9999017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b910573c9df50d7%3A0xdf26f6b34a5226a7!2sThe%20Sands%20Apartments!5e0!3m2!1sen!2sau!4v1699999999999!5m2!1sen!2sau"
-                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
                             title="Ubicación de Costura Latina en The Sands Apartments, Surfers Paradise">
                         </iframe>
                     </div>
+                    
                     <div class="mt-6 space-y-3">
                         <div class="flex items-center justify-center">
                             <span class="text-pink-500 mr-2">📱</span>
-                            <a href="https://wa.me/61430049118" class="text-lg font-semibold hover:text-pink-600">+61 430 049 118</a>
+                            <a href="https://wa.me/61430049118" class="text-lg font-semibold hover:text-pink-600">
+                                +61 430 049 118
+                            </a>
                         </div>
-                        <p class="text-center text-gray-600 text-sm">📍 The Sands Apartments, Surfers Paradise</p>
-                        <p class="text-center text-gray-600 text-sm">Horarios: Lun-Vie 9am-6pm | Sáb 10am-4pm</p>
+                        <p class="text-center text-gray-600 text-sm">
+                            📍 The Sands Apartments, Surfers Paradise
+                        </p>
+                        <p class="text-center text-gray-600 text-sm">
+                            Horarios: Lun-Vie 9am-6pm | Sáb 10am-4pm
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FORMULARIO -->
+    <!-- 6. FORMULARIO SIMPLE -->
     <section id="contacto" class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <div class="fade-in max-w-2xl mx-auto text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Solicita tu Presupuesto Gratuito</h2>
-                <p class="text-gray-600 text-lg mb-8">Te contactaremos en menos de 24 horas con el mejor precio</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                    Solicita tu Presupuesto Gratuito
+                </h2>
+                <p class="text-gray-600 text-lg mb-8">
+                    Te contactaremos en menos de 24 horas con el mejor precio
+                </p>
                 
-                <form id="contact-form" class="bg-gray-50 rounded-2xl p-8 shadow-lg" novalidate>
-                    <!-- Honeypot -->
+                <form id="contact-form" class="bg-gray-50 rounded-2xl p-8 shadow-lg">
+                    <!-- Honeypot field - invisible para humanos, visible para bots -->
                     <div class="honeypot" aria-hidden="true">
                         <label for="website">Website</label>
-                        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                        <input type="text" id="website" name="website" autocomplete="off">
                     </div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div class="text-left">
                             <label class="block text-gray-700 font-medium mb-2">Nombre *</label>
-                            <input type="text" name="nombre" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent" aria-describedby="nombre-error">
+                            <input type="text" name="nombre" required
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                                   aria-describedby="nombre-error">
                             <div id="nombre-error" role="alert" class="text-red-600 text-sm mt-1 hidden"></div>
                         </div>
                         <div class="text-left">
-                            <label class="block text-gray-700 font-medium mb-2">WhatsApp * <span class="text-pink-600 text-xs font-normal">(Respondemos más rápido)</span></label>
-                            <!-- ✅ Selector País + Zona horaria + Tel -->
-                            <div class="flex gap-2">
-                                <select id="country-code" class="px-3 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent">
-                                    <option value="+61">🇦🇺 +61 AU</option>
-                                    <option value="+57">🇨🇴 +57 CO</option>
-                                    <option value="+64">🇳🇿 +64 NZ</option>
-                                    <option value="+1">🇺🇸 +1 US</option>
-                                </select>
-                                <select id="timezone" class="px-3 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent hidden md:block">
-                                    <option>Australia/Brisbane</option>
-                                    <option>Australia/Sydney</option>
-                                    <option>Australia/Melbourne</option>
-                                    <option>America/Bogota</option>
-                                    <option>America/New_York</option>
-                                    <option>Pacific/Auckland</option>
-                                </select>
-                                <input type="tel" name="whatsapp" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent" placeholder="430 049 118" aria-describedby="whatsapp-error">
-                            </div>
-                            <div class="text-xs text-gray-500 mt-1 md:block hidden">El prefijo se ajusta según tu país/zona horaria.</div>
+                            <label class="block text-gray-700 font-medium mb-2">
+                                WhatsApp *
+                                <span class="text-pink-600 text-xs font-normal">(Respondemos más rápido)</span>
+                            </label>
+                            <input type="tel" name="whatsapp" inputmode="tel" required
+                                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                                   placeholder="+61..."
+                                   aria-describedby="whatsapp-error">
                             <div id="whatsapp-error" role="alert" class="text-red-600 text-sm mt-1 hidden"></div>
                         </div>
                     </div>
                     
                     <div class="text-left mb-6">
                         <label class="block text-gray-700 font-medium mb-2">Email *</label>
-                        <input type="email" name="correo" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent" aria-describedby="correo-error">
+                        <input type="email" name="correo" required
+                               class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                               aria-describedby="correo-error">
                         <div id="correo-error" role="alert" class="text-red-600 text-sm mt-1 hidden"></div>
                     </div>
                     
                     <div class="text-left mb-6">
                         <label class="block text-gray-700 font-medium mb-2">¿Qué necesitas arreglar? *</label>
-                        <textarea name="descripcion" rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent" placeholder="Ej: Dobladillo de pantalón, ajuste de vestido, reparación de costura..." aria-describedby="descripcion-error"></textarea>
+                        <textarea name="descripcion" rows="4" required
+                                  class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                                  placeholder="Ej: Dobladillo de pantalón, ajuste de vestido, reparación de costura..."
+                                  aria-describedby="descripcion-error"></textarea>
                         <div id="descripcion-error" role="alert" class="text-red-600 text-sm mt-1 hidden"></div>
                     </div>
                     
+                    <!-- Checkbox de consentimiento -->
                     <div class="mb-6">
                         <label class="flex items-start text-left text-sm text-gray-600 cursor-pointer">
-                            <input type="checkbox" id="consentimiento" name="consentimiento" required class="mt-1 mr-3 h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded" aria-describedby="consentimiento-error">
+                            <input type="checkbox" id="consentimiento" name="consentimiento" required
+                                   class="mt-1 mr-3 h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded"
+                                   aria-describedby="consentimiento-error">
                             <span>
                                 Acepto recibir el correo de bienvenida y comunicaciones de Costura Latina. 
                                 <a href="#politica-privacidad" class="text-pink-600 hover:text-pink-700 underline">Política de privacidad</a>
@@ -314,13 +520,15 @@
                         <div id="consentimiento-error" role="alert" class="text-red-600 text-sm mt-1 hidden"></div>
                     </div>
                     
-                    <button type="submit" id="submit-button" class="w-full bg-gray-400 text-white py-4 px-8 rounded-lg text-lg font-bold transition transform cursor-not-allowed" disabled>
+                    <button type="submit" id="submit-button"
+                            class="w-full bg-gray-400 text-white py-4 px-8 rounded-lg text-lg font-bold transition transform cursor-not-allowed"
+                            disabled>
                         🧵 Solicitar Presupuesto GRATIS
                     </button>
                     
                     <p class="text-xs text-gray-500 mt-4">
                         Al marcar el checkbox, aceptas recibir comunicaciones de Costura Latina por email y WhatsApp. 
-                        No compartimos tu información con terceros.
+                        Puedes cancelar tu suscripción en cualquier momento. No compartimos tu información con terceros.
                     </p>
                 </form>
                 
@@ -329,12 +537,17 @@
         </div>
     </section>
 
-    <!-- CIERRE -->
+    <!-- 7. CIERRE EMOCIONAL -->
     <section class="py-16 bg-pink-600 text-white text-center">
         <div class="container mx-auto px-4">
             <div class="fade-in max-w-3xl mx-auto">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6">No dejes que tu prenda favorita se pierda</h2>
-                <p class="text-xl mb-8 opacity-90">Arreglarla es más fácil de lo que crees. Cada costura cuenta una historia, cada ajuste devuelve la confianza.</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                    No dejes que tu prenda favorita se pierda
+                </h2>
+                <p class="text-xl mb-8 opacity-90">
+                    Arreglarla es más fácil de lo que crees. Cada costura cuenta una historia, 
+                    cada ajuste devuelve la confianza.
+                </p>
                 <a href="#contacto" class="inline-block bg-yellow-400 text-gray-900 px-8 py-4 rounded-full text-lg font-bold hover:bg-yellow-300 transition transform hover:scale-105">
                     Recupera tu Prenda Favorita Ahora
                 </a>
@@ -342,18 +555,35 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer Simplificado -->
     <footer class="bg-gray-800 text-white py-8 text-center">
         <div class="container mx-auto px-4">
             <div class="mb-6">
                 <div class="text-2xl font-bold text-pink-400 mb-2">Costura Latina</div>
                 <p class="text-gray-400 text-sm">Confianza, detalle y calidad hechos a mano</p>
             </div>
+            
             <div class="flex justify-center space-x-6 mb-6">
-                <a href="https://www.instagram.com/costura_latina_/" target="_blank" class="text-gray-400 hover:text-pink-400 transition" aria-label="Instagram">@</a>
-                <a href="https://www.facebook.com/profile.php?id=61575973637883" target="_blank" class="text-gray-400 hover:text-pink-400 transition" aria-label="Facebook">f</a>
-                <a href="https://wa.me/61430049118" target="_blank" class="text-gray-400 hover:text-pink-400 transition" aria-label="WhatsApp">WA</a>
+                <a href="https://www.instagram.com/costura_latina_/" target="_blank" 
+                   class="text-gray-400 hover:text-pink-400 transition">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61575973637883" target="_blank" 
+                   class="text-gray-400 hover:text-pink-400 transition">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                </a>
+                <a href="https://wa.me/61430049118" target="_blank" 
+                   class="text-gray-400 hover:text-pink-400 transition">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                    </svg>
+                </a>
             </div>
+            
             <div class="text-gray-400 text-sm space-y-1">
                 <p>&copy; 2025 Costura Latina. Todos los derechos reservados.</p>
                 <p>Gold Coast, Queensland, Australia | +61 430 049 118</p>
@@ -361,229 +591,401 @@
         </div>
     </footer>
 
-    <!-- WhatsApp sticky -->
-    <a href="https://wa.me/61430049118" class="whatsapp-sticky" target="_blank" rel="noopener" aria-label="Chatear por WhatsApp">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884"/></svg>
+    <!-- WhatsApp sticky button (solo móvil) -->
+    <a href="https://wa.me/61430049118" class="whatsapp-sticky" target="_blank" rel="noopener">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+        </svg>
         WhatsApp
     </a>
 
-    <!-- ====== Supabase UMD robusto (con fallback) ====== -->
+    <!-- Scripts -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2.44.0/dist/umd/supabase.min.js"></script>
+    <script src="https://unpkg.com/libphonenumber-js@1.10.53/bundle/libphonenumber-max.js"></script>
     <script>
-      const SUPABASE_URL = 'https://fnasihlmuuqwyyupgbyq.supabase.co';
-      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZuYXNpaGxtdXVxd3l5dXBnYnlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NjgwNjIsImV4cCI6MjA3MDM0NDA2Mn0.1C8nhMztjrmldhho7oQXcTgzhxuowYHR9_zwZoqe6Hk';
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://fnasihlmuuqwyyupgbyq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZuYXNpaGxtdXVxd3l5dXBnYnlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3NjgwNjIsImV4cCI6MjA3MDM0NDA2Mn0.1C8nhMztjrmldhho7oQXcTgzhxuowYHR9_zwZoqe6Hk';
+        let supabaseClient;
 
-      function loadScript(src) {
-        return new Promise((resolve, reject) => {
-          const s = document.createElement('script');
-          s.src = src;
-          s.async = false;
-          s.defer = true;
-          s.onload = resolve;
-          s.onerror = reject;
-          document.head.appendChild(s);
-        });
-      }
-
-      async function ensureSupabaseLoaded() {
-        const primary = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.44.0/dist/umd/supabase.min.js';
-        const fallback = 'https://unpkg.com/@supabase/supabase-js@2.44.0/dist/umd/supabase.min.js';
-        try {
-          if (!window.supabase) await loadScript(primary);
-          if (!window.supabase) await loadScript(fallback);
-        } catch (e) {
-          console.error('No se pudo cargar el SDK de Supabase desde los CDNs', e);
+        // Phone normalization helper
+        function normalizePhone(raw, region = 'AU') {
+            if (!raw || typeof raw !== 'string') return null;
+            
+            // Clean input - remove everything except digits and +
+            const cleaned = raw.replace(/[^\d+]/g, '');
+            if (!cleaned) return null;
+            
+            try {
+                let phoneNumber;
+                
+                // If starts with +, parse directly
+                if (cleaned.startsWith('+')) {
+                    phoneNumber = libphonenumber.parsePhoneNumber(cleaned);
+                } else {
+                    // For AU, handle numbers starting with 0 (like 0430...)
+                    if (region === 'AU' && cleaned.startsWith('0')) {
+                        // Try parsing as AU number
+                        phoneNumber = libphonenumber.parsePhoneNumber(cleaned, region);
+                    } else {
+                        // Try parsing with default region
+                        phoneNumber = libphonenumber.parsePhoneNumber(cleaned, region);
+                    }
+                }
+                
+                // If parsing failed, try common regions
+                if (!phoneNumber || !phoneNumber.isValid()) {
+                    const commonRegions = ['AU', 'CO', 'MX', 'CL', 'PE', 'AR', 'UY', 'PY', 'ES', 'VE', 'EC', 'BO'];
+                    
+                    for (const tryRegion of commonRegions) {
+                        try {
+                            phoneNumber = libphonenumber.parsePhoneNumber(cleaned, tryRegion);
+                            if (phoneNumber && phoneNumber.isValid()) {
+                                break;
+                            }
+                        } catch (e) {
+                            continue;
+                        }
+                    }
+                }
+                
+                // Return E.164 format if valid
+                if (phoneNumber && phoneNumber.isValid()) {
+                    return phoneNumber.format('E.164');
+                }
+                
+                return null;
+            } catch (error) {
+                return null;
+            }
         }
-        if (!window.supabase || typeof window.supabase.createClient !== 'function') {
-          console.error('Supabase UMD no disponible después de intentar ambos CDNs');
-          return null;
-        }
-        return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      }
 
-      let supabaseClient = null;
-      document.addEventListener('DOMContentLoaded', async () => {
-        supabaseClient = await ensureSupabaseLoaded();
-        if (!supabaseClient) {
-          const box = document.getElementById('form-message');
-          if (box) {
-            box.classList.remove('hidden');
-            box.innerHTML = '<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">No se pudo cargar el SDK de Supabase. Recarga la página.</div>';
-          }
-        } else {
-          console.log('Supabase UMD cargado ✓');
-        }
-      });
-    </script>
-
-    <!-- ====== Lógica de la página y envío del formulario ====== -->
-    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Smooth scroll
-            document.querySelectorAll('a[href^="#"]').forEach(a=>{
-                a.addEventListener('click', e=>{
-                    const t = document.querySelector(a.getAttribute('href'));
-                    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth', block:'start'}); }
+            // Initialize Supabase
+            if (typeof Supabase !== 'undefined') {
+                supabaseClient = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            }
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 });
             });
 
-            // Fade-in on scroll
-            const io = new IntersectionObserver(entries=>{
-                entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('visible'); }});
-            }, {threshold:0.1, rootMargin:'0px 0px -50px 0px'});
-            document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+            // Fade in animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
 
-            // Counter
-            function animateCounter(){
-                const el = document.querySelector('[data-count]'); if(!el) return;
-                const target = parseInt(el.dataset.count); let current=0; const step = target/100;
-                const timer = setInterval(()=>{ current+=step; el.textContent = Math.floor(current);
-                    if(current>=target){ el.textContent = target + '+'; clearInterval(timer); }
-                },20);
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Counter animation
+            function animateCounter() {
+                const counter = document.querySelector('[data-count]');
+                if (!counter) return;
+                
+                const target = parseInt(counter.dataset.count);
+                let current = 0;
+                const increment = target / 100;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    counter.textContent = Math.floor(current);
+                    
+                    if (current >= target) {
+                        counter.textContent = target + '+';
+                        clearInterval(timer);
+                    }
+                }, 20);
             }
-            const co = new IntersectionObserver(es=>{
-                es.forEach(e=>{ if(e.isIntersecting){ animateCounter(); co.unobserve(e.target); }});
-            });
-            const ce = document.querySelector('[data-count]'); if(ce){ co.observe(ce); }
 
-            // ====== Prefijo por país + zona horaria ======
-            const countrySel = document.getElementById('country-code');
-            const tzSel = document.getElementById('timezone');
-            const phoneInput = document.querySelector('input[name="whatsapp"]');
-
-            // Auto-detect
-            try {
-                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-                const lower = tz.toLowerCase();
-                if (lower.includes('australia')) {
-                    tzSel.value = 'Australia/Brisbane';
-                    countrySel.value = '+61';
-                } else if (lower.includes('bogota')) {
-                    tzSel.value = 'America/Bogota';
-                    countrySel.value = '+57';
-                } else if (lower.includes('auckland')) {
-                    tzSel.value = 'Pacific/Auckland';
-                    countrySel.value = '+64';
-                } else if (lower.includes('new_york')) {
-                    tzSel.value = 'America/New_York';
-                    countrySel.value = '+1';
-                }
-            } catch(_) {}
-
-            // Mantener prefijo visible si el usuario borra
-            phoneInput.addEventListener('focus', () => {
-                if (!phoneInput.value.trim()) phoneInput.value = '';
+            // Trigger counter when visible
+            const counterObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter();
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
             });
 
-            // ====== Form ======
+            const counterElement = document.querySelector('[data-count]');
+            if (counterElement) {
+                counterObserver.observe(counterElement);
+            }
+
+            // Form submission and validation
             const form = document.getElementById('contact-form');
             const submitButton = document.getElementById('submit-button');
             const consentimientoCheckbox = document.getElementById('consentimiento');
-            const formMessage = document.getElementById('form-message');
+            const whatsappInput = document.querySelector('input[name="whatsapp"]');
 
-            function toggleSubmitButton(){
-                if(consentimientoCheckbox.checked){
-                    submitButton.disabled=false;
-                    submitButton.classList.remove('bg-gray-400','cursor-not-allowed');
-                    submitButton.classList.add('bg-pink-600','hover:bg-pink-700','hover:scale-105','pulse-button');
-                }else{
-                    submitButton.disabled=true;
-                    submitButton.classList.add('bg-gray-400','cursor-not-allowed');
-                    submitButton.classList.remove('bg-pink-600','hover:bg-pink-700','hover:scale-105','pulse-button');
+            // WhatsApp input blur formatting
+            whatsappInput.addEventListener('blur', function() {
+                const rawValue = this.value.trim();
+                if (rawValue) {
+                    const normalized = normalizePhone(rawValue);
+                    if (normalized) {
+                        // Format for display (you can customize this)
+                        try {
+                            const phoneNumber = libphonenumber.parsePhoneNumber(normalized);
+                            this.value = phoneNumber.formatInternational();
+                        } catch (e) {
+                            this.value = normalized;
+                        }
+                    }
                 }
-            }
-            consentimientoCheckbox.addEventListener('change', toggleSubmitButton);
-
-            function showFieldError(name,msg){
-                const err = document.getElementById(name+'-error');
-                const field = document.querySelector(`[name="${name}"]`);
-                if(err && field){ err.textContent=msg; err.classList.remove('hidden'); field.classList.add('border-red-500'); field.setAttribute('aria-invalid','true'); }
-            }
-            function clearFieldError(name){
-                const err = document.getElementById(name+'-error');
-                const field = document.querySelector(`[name="${name}"]`);
-                if(err && field){ err.classList.add('hidden'); field.classList.remove('border-red-500'); field.removeAttribute('aria-invalid'); }
-            }
-            ['nombre','whatsapp','correo','descripcion'].forEach(n=>{
-                const f = document.querySelector(`[name="${n}"]`); if(f){ f.addEventListener('input',()=>clearFieldError(n)); }
             });
 
-            form.addEventListener('submit', async (e)=>{
+            // Enable/disable submit button based on checkbox
+            function toggleSubmitButton() {
+                if (consentimientoCheckbox.checked) {
+                    submitButton.disabled = false;
+                    submitButton.classList.remove('bg-gray-400', 'cursor-not-allowed');
+                    submitButton.classList.add('bg-pink-600', 'hover:bg-pink-700', 'hover:scale-105', 'pulse-button');
+                } else {
+                    submitButton.disabled = true;
+                    submitButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+                    submitButton.classList.remove('bg-pink-600', 'hover:bg-pink-700', 'hover:scale-105', 'pulse-button');
+                }
+            }
+
+            // Listen for checkbox changes
+            consentimientoCheckbox.addEventListener('change', toggleSubmitButton);
+
+            // Form validation helper
+            function showFieldError(fieldName, message) {
+                const errorDiv = document.getElementById(fieldName + '-error');
+                const field = document.querySelector(`[name="${fieldName}"]`);
+                
+                if (errorDiv && field) {
+                    errorDiv.textContent = message;
+                    errorDiv.classList.remove('hidden');
+                    field.classList.add('border-red-500');
+                    field.setAttribute('aria-invalid', 'true');
+                }
+            }
+
+            function clearFieldError(fieldName) {
+                const errorDiv = document.getElementById(fieldName + '-error');
+                const field = document.querySelector(`[name="${fieldName}"]`);
+                
+                if (errorDiv && field) {
+                    errorDiv.classList.add('hidden');
+                    field.classList.remove('border-red-500');
+                    field.removeAttribute('aria-invalid');
+                }
+            }
+
+            // Clear errors on input
+            ['nombre', 'whatsapp', 'correo', 'descripcion'].forEach(fieldName => {
+                const field = document.querySelector(`[name="${fieldName}"]`);
+                if (field) {
+                    field.addEventListener('input', () => clearFieldError(fieldName));
+                }
+            });
+
+            document.getElementById('contact-form').addEventListener('submit', async function(e) {
                 e.preventDefault();
 
-                ['nombre','whatsapp','correo','descripcion','consentimiento'].forEach(clearFieldError);
-                const fd = new FormData(form);
-                const honeypot = fd.get('website');
-                if(honeypot && honeypot.trim()!==''){
-                    formMessage.innerHTML = `<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">Error al procesar. Intenta de nuevo.</div>`;
+                const form = e.target;
+                const formMessage = document.getElementById('form-message');
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                // Check for double submission (30s cooldown)
+                const lastSubmit = sessionStorage.getItem('cl_last_submit');
+                const now = Date.now();
+                if (lastSubmit && (now - parseInt(lastSubmit)) < 30000) {
+                    formMessage.innerHTML = `
+                        <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
+                            <strong>¡Espera!</strong> Ya enviaste una solicitud recientemente. 
+                            Espera 30 segundos antes de enviar otra.
+                        </div>
+                    `;
                     formMessage.classList.remove('hidden');
-                    submitButton.disabled=false; submitButton.innerHTML='🧵 Solicitar Presupuesto GRATIS';
                     return;
                 }
 
-                let hasErrors=false;
-                if(!fd.get('nombre')?.trim()){ showFieldError('nombre','Por favor, ingresa tu nombre'); hasErrors=true; }
-                const localPhone = (fd.get('whatsapp') || '').toString();
-                if(!localPhone.trim()){ showFieldError('whatsapp','Por favor, ingresa tu número de WhatsApp'); hasErrors=true; }
-                const email = fd.get('correo')?.trim();
-                if(!email){ showFieldError('correo','Por favor, ingresa tu email'); hasErrors=true; }
-                else { const re=/^[^\s@]+@[^\s@]+\.[^\s@]+$/; if(!re.test(email)){ showFieldError('correo','Por favor, ingresa un email válido'); hasErrors=true; } }
-                if(!fd.get('descripcion')?.trim()){ showFieldError('descripcion','Por favor, describe qué necesitas arreglar'); hasErrors=true; }
-                if(!consentimientoCheckbox.checked){
-                    const err=document.getElementById('consentimiento-error');
-                    err.textContent='Debes aceptar recibir comunicaciones para continuar';
-                    err.classList.remove('hidden'); hasErrors=true;
+                // Clear previous errors
+                ['nombre', 'whatsapp', 'correo', 'descripcion', 'consentimiento'].forEach(clearFieldError);
+
+                // Validate required fields
+                let hasErrors = false;
+                const formData = new FormData(form);
+
+                // Honeypot check
+                const honeypotValue = formData.get('website');
+                if (honeypotValue && honeypotValue.trim() !== '') {
+                    formMessage.innerHTML = `
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                            <strong>Error:</strong> Hubo un problema al procesar tu solicitud. 
+                            Por favor, intenta nuevamente o contáctanos directamente.
+                        </div>
+                    `;
+                    formMessage.classList.remove('hidden');
+                    return;
                 }
-                if(hasErrors) return;
 
-                // Normalizar a E.164 con el prefijo del select
-                const cc = countrySel.value || '+61';
-                const digits = localPhone.replace(/[^\d]/g,'');
-                const fullWhatsApp = `${cc}${digits}`.replace(/\+\+/, '+');
+                if (!formData.get('nombre')?.trim()) {
+                    showFieldError('nombre', 'Por favor, ingresa tu nombre');
+                    hasErrors = true;
+                }
 
+                const rawPhone = formData.get('whatsapp')?.trim();
+                if (!rawPhone) {
+                    showFieldError('whatsapp', 'Por favor, ingresa tu número de WhatsApp');
+                    hasErrors = true;
+                } else {
+                    const normalized = normalizePhone(rawPhone);
+                    if (!normalized) {
+                        showFieldError('whatsapp', 'Número inválido. Ejemplos: +61 430 049 118, 0430 049 118');
+                        hasErrors = true;
+                    }
+                }
+
+                if (!formData.get('correo')?.trim()) {
+                    showFieldError('correo', 'Por favor, ingresa tu email');
+                    hasErrors = true;
+                } else {
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(formData.get('correo'))) {
+                        showFieldError('correo', 'Por favor, ingresa un email válido');
+                        hasErrors = true;
+                    }
+                }
+
+                if (!formData.get('descripcion')?.trim()) {
+                    showFieldError('descripcion', 'Por favor, describe qué necesitas arreglar');
+                    hasErrors = true;
+                }
+
+                if (!document.getElementById('consentimiento').checked) {
+                    const errorDiv = document.getElementById('consentimiento-error');
+                    errorDiv.textContent = 'Debes aceptar recibir comunicaciones para continuar';
+                    errorDiv.classList.remove('hidden');
+                    hasErrors = true;
+                }
+
+                if (hasErrors) {
+                    return;
+                }
+
+                // Show loading
                 formMessage.innerHTML = '<div class="text-gray-600 font-medium">Enviando solicitud...</div>';
                 formMessage.classList.remove('hidden');
-                submitButton.disabled=true; submitButton.innerHTML='⏳ Enviando...';
+                submitButton.disabled = true;
+                submitButton.innerHTML = '⏳ Enviando...';
 
-                const payload = {
-                    name: (fd.get('nombre') || '').toString().slice(0,120),
-                    email: email.toString().slice(0,200),
-                    message: (`WhatsApp: ${fullWhatsApp} — ${fd.get('descripcion') || ''}`).toString().slice(0,1000),
-                    user_agent: navigator.userAgent.slice(0,500)
+                // Set submission timestamp
+                sessionStorage.setItem('cl_last_submit', now.toString());
+
+                // Prepare data with normalized phone
+                const normalized = normalizePhone(rawPhone);
+                const data = {
+                    nombre: formData.get('nombre').trim(),
+                    correo: formData.get('correo').trim(),
+                    whatsapp: normalized,
+                    whatsapp_raw: rawPhone,
+                    descripcion: formData.get('descripcion').trim(),
+                    fecha: new Date().toISOString()
                 };
 
-                try{
-                    if(!supabaseClient) throw new Error('Supabase no está inicializado (SDK no cargado)');
-                    const { error } = await supabaseClient.from('messages').insert([payload]);
-                    if(error) throw error;
+                try {
+                    if (!supabaseClient) {
+                        throw new Error('Error de configuración del sistema');
+                    }
 
-                    formMessage.innerHTML = `<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded"><strong>¡Perfecto!</strong> Tu solicitud ha sido enviada. Te contactaremos en menos de 24 horas al ${fullWhatsApp}</div>`;
-                    form.reset(); toggleSubmitButton();
-                }catch(err){
-                    console.error(err);
-                    const msg = (err && (err.message || err.error_description)) ? String(err.message || err.error_description) : 'Hubo un problema. Intenta de nuevo.';
-                    formMessage.innerHTML = `<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"><strong>Oops!</strong> ${msg.replace(/</g,'&lt;')}</div>`;
-                }finally{
-                    submitButton.disabled=false; submitButton.innerHTML='🧵 Solicitar Presupuesto GRATIS';
-                    setTimeout(()=>{ formMessage.classList.add('hidden'); formMessage.innerHTML=''; }, 10000);
+                    const { error } = await supabaseClient
+                        .from('solicitudes_presupuesto')
+                        .insert([data]);
+
+                    if (error) {
+                        throw error;
+                    }
+
+                    // Success
+                    formMessage.innerHTML = `
+                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                            <strong>¡Perfecto!</strong> Tu solicitud ha sido enviada. 
+                            Te contactaremos en menos de 24 horas al ${data.whatsapp}
+                        </div>
+                    `;
+                    form.reset();
+                    toggleSubmitButton();
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    formMessage.innerHTML = `
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                            <strong>Oops!</strong> Hubo un problema. Por favor, contáctanos directamente al 
+                            <a href="https://wa.me/61430049118" class="underline">+61 430 049 118</a>
+                        </div>
+                    `;
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = '🧵 Solicitar Presupuesto GRATIS';
+                    
+                    setTimeout(() => {
+                        formMessage.classList.add('hidden');
+                        formMessage.innerHTML = '';
+                    }, 10000);
                 }
             });
         });
 
-        // Slider
+        // Gallery slider functionality
         let currentSlide = 0;
         const slideWidth = 320;
-        function scrollGallery(direction){
+
+        function scrollGallery(direction) {
             const slider = document.getElementById('gallery-slider');
             const maxSlides = slider.children.length - Math.floor(slider.parentElement.offsetWidth / slideWidth);
+            
             currentSlide += direction;
-            if(currentSlide<0) currentSlide=0;
-            if(currentSlide>maxSlides) currentSlide=maxSlides;
+            
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide > maxSlides) currentSlide = maxSlides;
+            
             slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
         }
-        setInterval(()=>{
+
+        // Auto-scroll gallery every 5 seconds
+        setInterval(() => {
             scrollGallery(1);
-            if(currentSlide >= document.getElementById('gallery-slider').children.length - 2){ currentSlide = -1; }
-        },5000);
+            if (currentSlide >= document.getElementById('gallery-slider').children.length - 2) {
+                currentSlide = -1;
+            }
+        }, 5000);
     </script>
 </body>
 </html>
+
+<!--
+REFERENCIA PARA CONFIGURAR EN SUPABASE (ejecutar en SQL Editor, no en el front):
+
+alter table public.solicitudes_presupuesto enable row level security;
+
+create policy "public_insert_only"
+on public.solicitudes_presupuesto
+for insert
+to anon
+with check (true);
+
+revoke select, update, delete on public.solicitudes_presupuesto from anon, authenticated;
+-->
