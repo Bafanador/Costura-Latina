@@ -1,6 +1,6 @@
 Flask
 flask-cors
-gunicorn
+supabase
 python-dotenv
-gspread
-google-auth
+gunicornauth
+
