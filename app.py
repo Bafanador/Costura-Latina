@@ -16,8 +16,10 @@ CORS(app, origins="*", methods=["GET", "POST"], allow_headers=["Content-Type"])
 
 # Configuración de las credenciales de Supabase
 # Se cargan desde las variables de entorno (archivo .env o configuradas en Render)
-SUPABASE_URL = os.environ.get("SUPABASE_URL")
-SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY")
+# NOTA: Se usan los valores proporcionados por el usuario para pruebas directas.
+# En producción en Render, estas deberían venir de las variables de entorno de Render.
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://dxqikogmznsjrznwluas.supabase.co")
+SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR4cWlrb2dtem5zanJ6bndsdWFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5MzAxNDAsImV4cCI6MjA3MDUwNjE0MH0.nUIu5FCfVVgTZW7Kze07NVAnMYTrjtaV0XG8tGLqprU")
 
 # Verifica que las credenciales estén configuradas
 if not SUPABASE_URL or not SUPABASE_ANON_KEY:
