@@ -16,6 +16,7 @@ CORS(app, origins="*", methods=["GET", "POST"], allow_headers=["Content-Type"])
 
 # Configuración de la URL de conexión a la base de datos CockroachDB Serverless
 # Render y CockroachDB Cloud suelen proporcionar una DATABASE_URL completa.
+# Esta URL se obtendrá de las variables de entorno de Render.
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
 # Verifica que la URL de la base de datos esté configurada
@@ -26,8 +27,10 @@ if not DATABASE_URL:
 # Función para establecer la conexión a la base de datos
 def get_db_connection():
     try:
-        # psycopgy2 puede conectar usando la cadena de conexión completa
-        conn = psycopg2.connect(DATABASE_URL)
+        # psycopg2 puede conectar usando la cadena de conexión completa.
+        # Aquí, pasamos sslmode='require' explícitamente para anular cualquier sslmode
+        # en la URL y evitar el error de certificado en Render.
+        conn = psycopg2.connect(DATABASE_URL, sslmode='require')
         # Por seguridad y para consistencia en la codificación.
         conn.set_session(autocommit=True)
         return conn
