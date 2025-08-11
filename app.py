@@ -1,11 +1,11 @@
 import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS # Para manejar CORS
-import psycopg2 # Cliente de PostgreSQL para Python
-from dotenv import load_dotenv # Para cargar variables de entorno (para desarrollo local)
+from supabase import create_client, Client # Cliente de Supabase para Python
+from dotenv import load_dotenv # Para cargar variables de entorno (solo para desarrollo local)
 
-# Carga las variables de entorno del archivo .env si ejecutas localmente
-# En un entorno de producción, configurarías estas variables directamente en tu hosting.
+# Carga las variables de entorno del archivo .env si ejecutas localmente.
+# En Render, configurarás estas variables directamente en la plataforma.
 load_dotenv()
 
 # Inicializa la aplicación Flask
@@ -14,30 +14,20 @@ app = Flask(__name__)
 # En producción, deberías restringir 'origins' a la URL específica de tu frontend.
 CORS(app, origins="*", methods=["GET", "POST"], allow_headers=["Content-Type"])
 
-# Configuración de las credenciales de la base de datos local PostgreSQL
-# Se pueden cargar de variables de entorno (para producción) o usar valores por defecto (para local)
-DB_HOST = os.environ.get("DB_HOST", "localhost")
-DB_PORT = os.environ.get("DB_PORT", "5432")
-DB_NAME = os.environ.get("DB_NAME", "solicitudes_presupuesto") # O el nombre de tu base de datos si es diferente
-DB_USER = os.environ.get("DB_USER", "postgres")
-DB_PASSWORD = os.environ.get("DB_PASSWORD", "Multielevacion1234")
+# Configuración de las credenciales de Supabase
+# Se cargan desde las variables de entorno (archivo .env o configuradas en Render)
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
+SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY")
 
-# Función para establecer la conexión a la base de datos
-def get_db_connection():
-    try:
-        conn = psycopg2.connect(
-            host=DB_HOST,
-            port=DB_PORT,
-            database=DB_NAME,
-            user=DB_USER,
-            password=DB_PASSWORD
-        )
-        return conn
-    except Exception as e:
-        print(f"Error al conectar a la base de datos local: {e}")
-        return None
+# Verifica que las credenciales estén configuradas
+if not SUPABASE_URL or not SUPABASE_ANON_KEY:
+    print("Error: Las variables de entorno SUPABASE_URL o SUPABASE_ANON_KEY no están configuradas.")
+    exit(1) # Sale de la aplicación si faltan las credenciales
 
-print(f"La aplicación Flask está lista para conectarse a la base de datos local en {DB_HOST}:{DB_PORT}/{DB_NAME}")
+# Inicializa el cliente de Supabase
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+print(f"Conectado a Supabase en URL: {SUPABASE_URL}")
 
 # Ruta para recibir las solicitudes de presupuesto
 @app.route('/submit_form', methods=['POST'])
@@ -57,41 +47,34 @@ def submit_form():
     if not nombre or not descripcion:
         return jsonify({"message": "Nombre y descripción son campos obligatorios."}), 400
 
-    conn = None # Inicializar conn para asegurar que siempre esté definido
     try:
-        conn = get_db_connection()
-        if conn is None:
-            return jsonify({"message": "Error interno del servidor: Fallo en la conexión a la base de datos local."}), 500
+        # Inserta los datos en la tabla 'solicitudes_presupuesto' de Supabase
+        # Asegúrate de que el nombre de la tabla coincida con el de tu base de datos
+        response = supabase.table("solicitudes_presupuesto").insert(
+            {
+                "nombre": nombre,
+                "correo": correo,
+                "whatsapp": whatsapp,
+                "descripcion": descripcion
+            }
+        ).execute()
 
-        cur = conn.cursor()
-
-        # Inserta los datos en la tabla 'solicitudes_presupuesto'
-        # Asegúrate de que la tabla ya existe en tu base de datos PostgreSQL local
-        cur.execute(
-            """
-            INSERT INTO solicitudes_presupuesto (nombre, correo, whatsapp, descripcion)
-            VALUES (%s, %s, %s, %s) RETURNING id;
-            """,
-            (nombre, correo, whatsapp, descripcion)
-        )
-        new_id = cur.fetchone()[0] # Obtiene el ID de la fila insertada
-        conn.commit() # Confirma los cambios en la base de datos
-        cur.close()
-
-        print(f"Datos insertados en la base de datos local con ID: {new_id}")
-        return jsonify({"message": "¡Tu solicitud ha sido enviada con éxito!", "data": {"id": new_id}}), 200
+        # Supabase devuelve el resultado de la operación en response.data
+        if response.data:
+            print(f"Datos insertados en Supabase: {response.data}")
+            return jsonify({"message": "¡Tu solicitud ha sido enviada con éxito!", "data": response.data}), 200
+        else:
+            # Si no hay data pero tampoco error, podría ser una respuesta vacía o un problema inesperado
+            print(f"Respuesta inesperada de Supabase: {response}")
+            return jsonify({"message": "Error al insertar la solicitud en Supabase: Respuesta vacía."}), 500
 
     except Exception as e:
-        print(f"Error al insertar en la base de datos local: {e}")
-        if conn:
-            conn.rollback() # Revierte los cambios si hay un error
+        print(f"Error al insertar en Supabase: {e}")
         return jsonify({"message": f"Error interno del servidor: {str(e)}"}), 500
-    finally:
-        if conn:
-            conn.close() # Asegura que la conexión se cierre
 
 # Punto de entrada para ejecutar la aplicación Flask
 if __name__ == '__main__':
-    # El puerto por defecto para Flask es 5000, pero puedes usar 3000 si lo prefieres
+    # El puerto es manejado por Render automáticamente, pero localmente puedes usar 3000
     port = int(os.environ.get("PORT", 3000))
     app.run(debug=True, host='0.0.0.0', port=port)
+
