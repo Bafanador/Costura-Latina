@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- reCAPTCHA v2 API -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- reCAPTCHA v3 API - Note: 'render' parameter uses your site key -->
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lcp6LArAAAAAIbtHujzFyZyy9XNMREVb2DFV5N_"></script>
     <style>
         /* Custom styles for the Inter font and smooth scrolling */
         body {
@@ -331,7 +331,6 @@
             </div>
             <!-- Reemplazado video embed con imagen -->
             <div class="md:w-1/2 w-full rounded-xl shadow-lg overflow-hidden">
-                
                 <img src="https://github.com/Bafanador/Costura-Latina/blob/main/Mi%20imagen%20de%20ChatGPT.png?raw=true" alt="Lili, fundadora de Costura Latina" class="w-full h-auto object-cover">
             </div>
         </div>
@@ -346,7 +345,6 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Service 1: Vestidos y Faldas -->
                 <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    
                     <img src="https://github.com/Bafanador/Costura-Latina/blob/main/ChatGPT%20Image%2020%20ago%202025,%2006_21_57%20p.m..png?raw=true" alt="Vestidos y Faldas" class="w-full h-48 object-cover rounded-lg mb-4">
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">Vestidos y Faldas</h3>
                     <ul class="text-gray-600 text-sm text-left list-disc list-inside space-y-1">
@@ -358,7 +356,6 @@
                 </div>
                 <!-- Service 2: Pantalones y Jeans -->
                 <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    
                     <img src="https://github.com/Bafanador/Costura-Latina/blob/main/ChatGPT%20Image%2020%20ago%202025,%2005_35_36%20p.m..png?raw=true" alt="Pantalones y Jeans" class="w-full h-48 object-cover rounded-lg mb-4">
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">Pantalones y Jeans</h3>
                     <ul class="text-gray-600 text-sm text-left list-disc list-inside space-y-1">
@@ -370,7 +367,6 @@
                 </div>
                 <!-- Service 3: Ropa Formal -->
                 <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    
                     <img src="https://github.com/Bafanador/Costura-Latina/blob/main/ChatGPT%20Image%2020%20ago%202025,%2006_26_57%20p.m..png?raw=true" alt="Ropa Formal" class="w-full h-48 object-cover rounded-lg mb-4">
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">Ropa Formal</h3>
                     <ul class="text-gray-600 text-sm text-left list-disc list-inside space-y-1">
@@ -382,7 +378,6 @@
                 </div>
                 <!-- Service 4: Uniformes laboral y escolar -->
                 <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    
                     <img src="https://github.com/Bafanador/Costura-Latina/blob/main/ChatGPT%20Image%2020%20ago%202025,%2006_18_13%20p.m..png?raw=true" alt="Uniformes laboral y escolar" class="w-full h-48 object-cover rounded-lg mb-4">
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">Uniformes laboral y escolar</h3>
                     <ul class="text-gray-600 text-sm text-left list-disc list-inside space-y-1">
@@ -450,10 +445,7 @@
                     <label for="descripcion-presupuesto" class="block text-gray-700 text-sm font-semibold mb-2">Descripción del requerimiento</label>
                     <textarea id="descripcion-presupuesto" name="descripcion" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Cuéntanos con detalle qué necesitas." required></textarea>
                 </div>
-                <!-- reCAPTCHA v2 Checkbox -->
-                <div class="mb-6 flex justify-center">
-                    <div class="g-recaptcha" data-sitekey="6Lcp6LArAAAAAIbtHujzFyZyy9XNMREVb2DFV5N_" data-callback="onRecaptchaChange"></div>
-                </div>
+                <!-- reCAPTCHA v3 does not require a visible widget here. It runs in the background. -->
                 <div class="mb-6 text-left flex items-center">
                     <input type="checkbox" id="privacy-policy" name="privacy_policy" class="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded" required>
                     <label for="privacy-policy" class="ml-2 block text-sm text-gray-900">
@@ -670,13 +662,6 @@
             }
         }
 
-        // reCAPTCHA callback function
-        let recaptchaVerified = false;
-        window.onRecaptchaChange = function(token) {
-            recaptchaVerified = (token !== "");
-            validateForm(); // Re-validate form when reCAPTCHA state changes
-        };
-
         // Form validation and button enable/disable
         const form = document.getElementById('presupuesto-form');
         const submitButton = document.getElementById('submit-button');
@@ -694,8 +679,9 @@
                     allRequiredFilled = false;
                 }
             });
-            // Ensure reCAPTCHA is also verified
-            submitButton.disabled = !(allRequiredFilled && recaptchaVerified);
+            // With reCAPTCHA v3, we enable the button based on other form fields.
+            // The reCAPTCHA token is generated and verified on submission.
+            submitButton.disabled = !allRequiredFilled;
         }
 
         form.addEventListener('input', validateForm);
@@ -710,41 +696,13 @@
 
             // Re-validate just before submission
             if (submitButton.disabled) {
-                // Optionally show an alert or highlight missing fields
-                alert('Por favor, completa todos los campos requeridos, acepta las políticas de privacidad y verifica el CAPTCHA.');
+                alert('Por favor, completa todos los campos requeridos y acepta las políticas de privacidad.');
                 return;
             }
-
-            const formData = new FormData(this);
-            const data = {};
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
-            }
-
-            // Get reCAPTCHA response token
-            const recaptchaResponse = grecaptcha.getResponse();
-            if (!recaptchaResponse) {
-                alert('Por favor, verifica el CAPTCHA.');
-                return;
-            }
-            data['g-recaptcha-response'] = recaptchaResponse;
-
-
-            // Combine the WhatsApp prefix and number
-            const whatsappPrefix = document.getElementById('whatsapp-prefix').value;
-            const whatsappNumber = document.getElementById('whatsapp-number').value;
-            data.whatsapp = whatsappPrefix + whatsappNumber;
-            // Remove the individual prefix and number from data if they were added by FormData
-            delete data.whatsapp_prefix;
-            delete data.whatsapp_number;
-
-
-            // Backend endpoint URL - IMPORTANT: Replace with your actual Render URL
-            const backendUrl = 'https://costura-latina.onrender.com/submit_form'; 
 
             const formContainer = this.parentElement;
             const confirmationMessage = document.createElement('p');
-            confirmationMessage.className = 'mt-4 text-lg font-semibold'; // Base classes
+            confirmationMessage.className = 'mt-4 text-lg font-semibold';
             const existingMessage = formContainer.querySelector('.text-green-600, .text-red-600, .text-pink-600');
             if (existingMessage) {
                 existingMessage.remove();
@@ -756,51 +714,71 @@
             loadingMessage.textContent = 'Enviando solicitud... por favor espera.';
             formContainer.appendChild(loadingMessage);
 
-            try {
-                const response = await fetch(backendUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
+            // Execute reCAPTCHA v3 to get a token
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6Lcp6LArAAAAAIbtHujzFyZyy9XNMREVb2DFV5N_', {action: 'submit_form'}).then(async function(token) {
+                    const formData = new FormData(form); // Use the form variable
+                    const data = {};
+                    for (let [key, value] of formData.entries()) {
+                        data[key] = value;
+                    }
+                    data['g-recaptcha-response'] = token; // Add the reCAPTCHA v3 token
+
+                    // Combine the WhatsApp prefix and number
+                    const whatsappPrefix = document.getElementById('whatsapp-prefix').value;
+                    const whatsappNumber = document.getElementById('whatsapp-number').value;
+                    data.whatsapp = whatsappPrefix + whatsappNumber;
+                    delete data.whatsapp_prefix;
+                    delete data.whatsapp_number;
+
+                    // Backend endpoint URL - IMPORTANT: Replace with your actual Render URL
+                    const backendUrl = 'https://costura-latina.onrender.com/submit_form'; 
+
+                    try {
+                        const response = await fetch(backendUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        });
+
+                        const result = await response.json();
+
+                        // Remove loading message
+                        if (loadingMessage) {
+                            loadingMessage.remove();
+                        }
+
+                        if (response.ok) {
+                            confirmationMessage.classList.add('text-green-600');
+                            confirmationMessage.textContent = result.message || '¡Tu solicitud ha sido enviada con éxito!';
+                            form.reset(); // Clear the form on success
+                            // No grecaptcha.reset() needed for v3, as it's invisible and generates new tokens.
+                        } else {
+                            confirmationMessage.classList.add('text-red-600');
+                            confirmationMessage.textContent = result.message || 'Error al enviar la solicitud. Inténtalo de nuevo.';
+                        }
+                    } catch (error) {
+                        // Remove loading message
+                        if (loadingMessage) {
+                            loadingMessage.remove();
+                        }
+                        
+                        confirmationMessage.classList.add('text-red-600');
+                        confirmationMessage.textContent = 'Error de conexión. Asegúrate de que el servidor esté funcionando y que la URL sea correcta.';
+                        console.error('Error al enviar el formulario:', error);
+                    } finally {
+                        formContainer.appendChild(confirmationMessage);
+                        // Reset form validation state after submission attempt
+                        validateForm(); 
+                        // Remove the message after a few seconds
+                        setTimeout(() => {
+                            confirmationMessage.remove();
+                        }, 8000);
+                    }
                 });
-
-                const result = await response.json();
-
-                // Remove loading message
-                if (loadingMessage) {
-                    loadingMessage.remove();
-                }
-
-                if (response.ok) { // Check for successful HTTP status (2xx)
-                    confirmationMessage.classList.add('text-green-600');
-                    confirmationMessage.textContent = result.message || '¡Tu solicitud ha sido enviada con éxito!';
-                    this.reset(); // Clear the form on success
-                    grecaptcha.reset(); // Reset reCAPTCHA
-                } else {
-                    confirmationMessage.classList.add('text-red-600');
-                    confirmationMessage.textContent = result.message || 'Error al enviar la solicitud. Inténtalo de nuevo.';
-                    grecaptcha.reset(); // Reset reCAPTCHA on error
-                }
-            } catch (error) {
-                // Remove loading message
-                if (loadingMessage) {
-                    loadingMessage.remove();
-                }
-                
-                confirmationMessage.classList.add('text-red-600');
-                confirmationMessage.textContent = 'Error de conexión. Asegúrate de que el servidor esté funcionando y que la URL sea correcta.';
-                console.error('Error al enviar el formulario:', error);
-                grecaptcha.reset(); // Reset reCAPTCHA on error
-            } finally {
-                formContainer.appendChild(confirmationMessage);
-                // Reset form validation after submission attempt
-                validateForm(); 
-                // Remove the message after a few seconds
-                setTimeout(() => {
-                    confirmationMessage.remove();
-                }, 8000); // Increased timeout for visibility
-            }
+            });
         });
 
     </script>
