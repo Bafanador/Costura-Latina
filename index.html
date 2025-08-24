@@ -15,14 +15,10 @@
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
-            background-color: #f8f4f0; /* Un color de fondo suave y cálido */
+            background-color: #FADDE1; /* Un rosa suave para el fondo general del body */
             color: #333;
             /* Background image styles */
-            background-image: url('https://github.com/Bafanador/Costura-Latina/blob/main/WhatsApp%20Image%202025-08-10%20at%207.44.43%20AM.jpeg?raw=true');
-            background-size: cover; /* Cubre toda el área */
-            background-position: center; /* Centra la imagen */
-            background-attachment: fixed; /* Fija la imagen de fondo al viewport */
-            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            background-image: none; /* Eliminar imagen de fondo del body */
         }
         /* Custom styles for the carousel (no longer needed for video, but keeping for reference if carousel returns) */
         .carousel-container {
@@ -61,7 +57,7 @@
         .carousel-button:hover {
             background-color: rgba(255, 255, 255, 0.9);
         }
-        /* Custom styles for icon backgrounds */
+        /* Custom styles for icon backgrounds (no longer needed for services, but keeping for reference) */
         .icon-bg {
             background-color: #ffe4e6; /* Un rosa muy suave para los iconos */
             padding: 0.75rem;
@@ -80,8 +76,12 @@
             transition: background-color 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .form-button:hover {
+        .form-button:hover:not(:disabled) {
             background-color: #e91e63; /* Un rosa más oscuro al pasar el ratón */
+        }
+        .form-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
         /* Responsive video container */
         .video-responsive {
@@ -102,28 +102,139 @@
         }
         /* Ensure content blocks have a background so text is readable over the background image */
         section {
-            /* Reduced opacity for more transparency */
-            background-color: rgba(255, 255, 255, 0.7); /* Fondo semi-transparente para legibilidad */
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente para legibilidad */
             backdrop-filter: blur(2px); /* Un ligero desenfoque para el fondo */
             margin-bottom: 4rem; /* Increased space between sections */
             margin-top: 4rem; /* Increased space between sections */
+            border-radius: 1rem; /* Added border-radius to all sections */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Added shadow to all sections */
         }
         /* Specific background colors for sections to override the general section rule if needed */
-        #sobre-nosotros {
-            background-color: rgba(255, 255, 255, 0.7); /* Reduced opacity from 0.9 to 0.7 */
+        #sobre-nosotros, #servicios, #presupuesto, #redes-sociales, #encuentranos, #faq {
+            background-color: rgba(255, 255, 255, 0.9); /* Ajuste la opacidad de todas las secciones */
         }
-        #servicios {
-            background-color: rgba(255, 244, 240, 0.7); /* Reduced opacity from 0.9 to 0.7 */
+
+        /* Hero section specific styles to use the uploaded image as background */
+        #hero-section {
+            background-image: url('https://github.com/Bafanador/Costura-Latina/blob/main/WhatsApp%20Image%202025-08-10%20at%207.44.43%20AM.jpeg?raw=true');
+            background-size: cover; /* Cubre toda el área */
+            background-position: center; /* Centra la imagen */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            position: relative;
+            color: white; /* Texto blanco para el hero para mejor contraste */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px; /* Altura mínima para la sección hero */
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            border-radius: 0 0 3rem 3rem; /* Bordes redondeados en la parte inferior */
+            overflow: hidden; /* Oculta cualquier desbordamiento de la imagen */
         }
-        #presupuesto {
-            background-color: rgba(255, 244, 240, 0.7); /* Reduced opacity from 0.9 to 0.7 */
+        /* Overlay for text readability on the hero image (now semi-transparent black) */
+        #hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3); /* Overlay negro semi-transparente para translucidez */
+            z-index: 1;
         }
-        #testimonios {
-            background-color: rgba(255, 255, 255, 0.7); /* Reduced opacity from 0.9 to 0.7 */
+        #hero-section .container { /* Asegura que el contenido esté por encima del overlay */
+            position: relative;
+            z-index: 2;
+            text-align: center; /* Centra el texto */
         }
-        /* Hero section also needs adjustment for its gradient background */
-        .hero-section-gradient {
-            background: linear-gradient(to right, rgba(255, 228, 230, 0.7), rgba(224, 242, 254, 0.7)); /* Reduced opacity for gradient colors */
+        /* Animation for fade-in effect (already present, ensuring it works) */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in-down {
+            animation: fadeInDown 1s ease-out forwards;
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        /* Keyframe for pulse animation */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.03);
+                opacity: 0.9;
+            }
+        }
+        .animate-pulse {
+            animation: pulse 2s infinite ease-in-out;
+        }
+        .map-container {
+            width: 100%;
+            height: 400px; /* Altura fija para el mapa */
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Styles for FAQ accordion */
+        .accordion-item {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+        }
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+            font-size: 1.125rem; /* text-lg */
+        }
+        .accordion-content {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            color: #4a5568; /* text-gray-700 */
+        }
+        .accordion-content.open {
+            max-height: 200px; /* Adjust as needed */
+            padding-bottom: 1.25rem;
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease-out;
+        }
+        .accordion-icon.rotate {
+            transform: rotate(180deg);
         }
     </style>
 </head>
@@ -136,10 +247,12 @@
             <a href="#" class="text-2xl font-bold text-pink-600 tracking-wide">Costura Latina</a>
             <!-- Navigation Menu -->
             <ul class="hidden md:flex space-x-8">
-                <li><a href="#sobre-nosotros" class="text-gray-700 hover:text-pink-600 transition duration-300">Sobre Nosotros</a></li>
+                <li><a href="#sobre-nosotros" class="text-gray-700 hover:text-pink-600 transition duration-300">Hola, soy Lili</a></li>
                 <li><a href="#servicios" class="text-gray-700 hover:text-pink-600 transition duration-300">Servicios</a></li>
                 <li><a href="#presupuesto" class="text-gray-700 hover:text-pink-600 transition duration-300">Solicitar Presupuesto</a></li>
-                <li><a href="#testimonios" class="text-gray-700 hover:text-pink-600 transition duration-300">Testimonios</a></li>
+                <li><a href="#encuentranos" class="text-gray-700 hover:text-pink-600 transition duration-300">Encuéntranos</a></li>
+                <li><a href="#faq" class="text-gray-700 hover:text-pink-600 transition duration-300">FAQ</a></li>
+                <li><a href="#redes-sociales" class="text-gray-700 hover:text-pink-600 transition duration-300">Redes Sociales</a></li>
             </ul>
             <!-- Mobile Menu Button (Hamburger) -->
             <div class="md:hidden">
@@ -158,26 +271,49 @@
                 </svg>
             </button>
             <ul class="text-center text-2xl space-y-6">
-                <li><a href="#sobre-nosotros" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Sobre Nosotros</a></li>
+                <li><a href="#sobre-nosotros" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Hola, soy Lili</a></li>
                 <li><a href="#servicios" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Servicios</a></li>
                 <li><a href="#presupuesto" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Solicitar Presupuesto</a></li>
-                <li><a href="#testimonios" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Testimonios</a></li>
+                <li><a href="#encuentranos" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Encuéntranos</a></li>
+                <li><a href="#faq" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">FAQ</a></li>
+                <li><a href="#redes-sociales" class="text-gray-700 hover:text-pink-600 transition duration-300" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Redes Sociales</a></li>
             </ul>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-section-gradient py-20 text-center rounded-b-3xl shadow-lg">
-        <div class="container mx-auto px-4 md:px-6">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-pink-700 leading-tight mb-4 animate-fade-in-down">
-                Costura Latina: Confianza, detalle y calidad hechos a mano
+    <section id="hero-section" class="py-20 text-center shadow-lg">
+        <div class="container mx-auto px-4 md:px-6 flex flex-col items-center justify-center h-full">
+            <!-- Logo re-added -->
+            <img src="https://github.com/Bafanador/Costura-Latina/blob/main/Logos%20(3).png?raw=true" alt="Logo de Costura Latina" class="mx-auto mb-8 w-[48rem] h-auto animate-fade-in-down">
+            <!-- Título principal -->
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4 animate-fade-in-down">
+                Recupera tus prendas favoritas y dales una segunda vida. Cada puntada cuenta tu historia.
             </h1>
-            <p class="text-lg md:text-xl text-gray-700 mb-8 max-w-3xl mx-auto animate-fade-in-up">
+            <!-- Subtítulo -->
+            <p class="text-lg md:text-xl text-white mb-8 max-w-3xl mx-auto animate-fade-in-up">
                 Transformamos tu ropa y cuidamos cada costura con amor.
             </p>
-            <a href="#presupuesto" class="inline-block bg-pink-600 text-white text-lg font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-pink-700 transition duration-300 transform hover:scale-105">
-                Solicitar Presupuesto
+            <!-- Botón de solicitud de presupuesto -->
+            <a href="#presupuesto" class="inline-flex items-center justify-center gap-2 bg-[#FDD017] text-gray-900 text-lg font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-[#FFD700] transition duration-300 transform hover:scale-105 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
+                Solicita tu Presupuesto GRATIS
             </a>
+            <!-- Mensaje de respuesta rápida -->
+            <p class="text-sm text-white mb-6">Respuesta en menos de 24h</p>
+
+            <!-- Garantía -->
+            <div class="flex items-center gap-2 bg-white text-gray-800 py-2 px-4 rounded-full shadow-md mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle-2 text-green-500"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                <span class="text-sm font-medium">Garantía: Si no queda perfecto, lo ajustamos sin costo</span>
+            </div>
+
+            <!-- Oferta limitada -->
+            <div class="inline-flex items-center gap-2 bg-red-600 text-white py-2 px-6 rounded-full shadow-lg animate-pulse">
+                <!-- Replaced flame icon with calendar-days icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
+                <span class="font-medium">OFERTA LIMITADA: Solo 3 cupos disponibles esta semana</span>
+            </div>
         </div>
     </section>
 
@@ -185,20 +321,15 @@
     <section id="sobre-nosotros" class="py-16 md:py-24 rounded-xl shadow-md mx-4 md:mx-auto">
         <div class="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-center gap-12">
             <div class="md:w-1/2 text-center md:text-left">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Sobre Nosotros</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Hola, soy Lili</h2>
                 <p class="text-gray-600 leading-relaxed mb-4">
-                    En Costura Latina, cada puntada es un pedacito de nuestra esencia migrante y el amor por el arte de coser. No solo arreglamos tu ropa, le damos una segunda vida con soluciones reales y cercanía. Ponemos pasión y un toque de humor en cada transformación, porque tu vestuario merece confianza, detalle y calidad hechos a mano.
+                    Crecí entre agujas, tiza y costuras. En Colombia, mi madre ha dedicado toda su vida a los arreglos y alteraciones; con ella aprendí a coser desde niña. Luego me profesionalicé en Diseño de Moda con énfasis in Patronaje Industrial en las Unidades Tecnológicas de Santander y hoy lidero la experiencia en Costura Latina.
+                    Mi misión aquí en Gold Coast es cuidar las prendas de nuestra comunidad hispana y devolverles su mejor versión. Hago todo tipo de arreglos; en pantalones, mantengo el dobladillo “original” para que el look siga siendo de fábrica.
                 </p>
             </div>
-            <!-- Video Embed for "Sobre Nosotros" section -->
-            <div class="md:w-1/2 w-full video-responsive">
-                <iframe
-                    src="https://www.instagram.com/p/DHchaUOB1sd/embed/"
-                    title="Instagram Reel"
-                    frameborder="0"
-                    allowfullscreen
-                    allowtransparency="true"
-                ></iframe>
+            <!-- Reemplazado video embed con imagen -->
+            <div class="md:w-1/2 w-full rounded-xl shadow-lg overflow-hidden">
+                <img src="https://github.com/Bafanador/Costura-Latina/blob/main/Mi%20imagen%20de%20ChatGPT.png?raw=true" alt="Lili, fundadora de Costura Latina" class="w-full h-auto object-cover">
             </div>
         </div>
     </section>
@@ -206,39 +337,53 @@
     <!-- Services Section -->
     <section id="servicios" class="py-16 md:py-24 rounded-xl shadow-md mx-4 md:mx-auto">
         <div class="container mx-auto px-4 md:px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-12">¿En qué te ayudamos?</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Nuestros Servicios</h2>
+            <p class="text-gray-600 text-lg mb-12">Especialistas en todo tipo de arreglos y ajustes</p>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Service 1: Arreglos y dobladillos -->
+                <!-- Service 1: Vestidos y Faldas -->
                 <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    <div class="icon-bg mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f06292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-scissors"><circle cx="6" cy="7" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="17" r="3"/><path d="M14.47 14.48 20 20"/><path d="M8.12 15.88 12 12"/></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Arreglos y Dobladillos</h3>
-                    <p class="text-gray-600">Ajustes perfectos para que tu ropa te quede como un guante. ¡Ni una puntada de más, ni de menos!</p>
+                    <img src="https://github.com/Bafanador/Costura-Latina/blob/main/ChatGPT%20Image%2020%20ago%202025,%2006_21_57%20p.m..png?raw=true" alt="Vestidos y Faldas" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Vestidos y Faldas</h3>
+                    <ul class="text-gray-600 text-sm text-left list-disc list-inside space-y-1">
+                        <li>Ajuste de talla</li>
+                        <li>Dobladillo profesional</li>
+                        <li>Modificación de escote</li>
+                        <li>Reparación de cremalleras</li>
+                    </ul>
                 </div>
-                <!-- Service 2: Transformación de prendas -->
+                <!-- Service 2: Pantalones y Jeans -->
                 <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    <div class="icon-bg mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f06292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="M9.9 10.8 2.7 14.7C2.2 15.1 2.9 16 3.4 15.6L10.5 11.7C10.9 11.3 10.2 10.4 9.9 10.8Z"/><path d="M12.7 2.1 14 8.7C14.2 9.4 14.9 9.8 15.6 9.6L22.2 8.3C22.9 8.1 23.3 7.4 23.1 6.7L16.5 0.1C16.1-.3 15.4 .1 15.2 .8L12.7 2.1Z"/><path d="M19.9 13.8 21.2 20.4C21.4 21.1 20.7 21.8 20 21.6L13.4 20.3C12.7 20.1 12.3 19.4 12.5 18.7L15 16.2C15.4 15.8 16.1 16.2 16.4 16.9L19.9 13.8Z"/><path d="M5 19.2 6.3 22.1C6.5 22.6 7.2 22.7 7.7 22.4L10.6 21.1C11.1 20.9 11.2 20.2 10.9 19.7L8.4 17.2C8 16.8 7.3 17.2 7 17.9L5 19.2Z"/></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Transformación de Prendas</h3>
-                    <p class="text-gray-600">Dale una segunda vida a esa prenda que amas. ¡De lo viejo a lo fabuloso con un toque mágico!</p>
+                    <img src="https://github.com/Bafanador/Costura-Latina/blob/main/ChatGPT%20Image%2020%20ago%202025,%2005_35_36%20p.m..png?raw=true" alt="Pantalones y Jeans" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Pantalones y Jeans</h3>
+                    <ul class="text-gray-600 text-sm text-left list-disc list-inside space-y-1">
+                        <li>Dobladillo perfecto</li>
+                        <li>Ajuste de cintura</li>
+                        <li>Entallado de piernas</li>
+                        <li>Parches y remiendos</li>
+                    </ul>
                 </div>
-                <!-- Service 3: Personalización (bordados, aplicaciones) -->
+                <!-- Service 3: Ropa Formal -->
                 <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    <div class="icon-bg mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f06292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-palette"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.67 0-.437-.172-.832-.418-1.103-.346-.345-.346-.91 0-1.255.804-.804 1.988-1.521 3.228-1.677 1.52-.18 3.058.09 4.336.829 1.845 1.159 2.99 4.067 2.99 4.067V12c0-5.5-4.5-10-10-10z"/></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Personalización</h3>
-                    <p class="text-gray-600">Bordados, aplicaciones y detalles únicos para que tu ropa cuente tu historia. ¡Hazla tuya!</p>
+                    <img src="https://github.com/Bafanador/Costura-Latina/blob/main/ChatGPT%20Image%2020%20ago%202025,%2006_26_57%20p.m..png?raw=true" alt="Ropa Formal" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Ropa Formal</h3>
+                    <ul class="text-gray-600 text-sm text-left list-disc list-inside space-y-1">
+                        <li>Trajes profesionales</li>
+                        <li>Camisas y blusas</li>
+                        <li>Uniformes de oficina</li>
+                        <li>Ropa de trabajo</li>
+                    </ul>
                 </div>
-                <!-- Service 4: Reparaciones express -->
+                <!-- Service 4: Uniformes laboral y escolar -->
                 <div class="bg-white p-6 rounded-xl shadow-md transform hover:scale-105 transition duration-300 flex flex-col items-center text-center">
-                    <div class="icon-bg mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f06292" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bolt"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m12 3-7 4"/><path d="m12 21 7-4"/><path d="M8.2 10.2 12 12l3.8-1.8"/><path d="M12 12v6"/></svg>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Reparaciones Express</h3>
-                    <p class="text-gray-600">¿Un descosido inesperado? ¡Te lo arreglamos en un abrir y cerrar de ojos para que sigas brillando!</p>
+                    <img src="https://github.com/Bafanador/Costura-Latina/blob/main/ChatGPT%20Image%2020%20ago%202025,%2006_18_13%20p.m..png?raw=true" alt="Uniformes laboral y escolar" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Uniformes laboral y escolar</h3>
+                    <ul class="text-gray-600 text-sm text-left list-disc list-inside space-y-1">
+                        <li>Ajuste de talla</li>
+                        <li>Refuerzo de costuras</li>
+                        <li>Colocación de insignias/parches</li>
+                        <li>Cambio de cierres</li>
+                    </ul>
                 </div>
             </div>
             <p class="text-lg md:text-xl text-gray-700 mt-12 font-semibold">
@@ -265,18 +410,46 @@
                 </div>
                 <div class="mb-6 text-left">
                     <label for="whatsapp-presupuesto" class="block text-gray-700 text-sm font-semibold mb-2">WhatsApp</label>
-                    <input type="tel" id="whatsapp-presupuesto" name="whatsapp" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Ej: +61 430 049 118" required>
+                    <div class="flex">
+                        <select id="whatsapp-prefix" name="whatsapp_prefix" class="px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-pink-500 bg-gray-50">
+                            <option value="+61" selected>Australia (+61)</option>
+                            <option value="+1">Canadá (+1)</option>
+                            <option value="+57">Colombia (+57)</option>
+                            <option value="+506">Costa Rica (+506)</option>
+                            <option value="+503">El Salvador (+503)</option>
+                            <option value="+34">España (+34)</option>
+                            <option value="+1">Estados Unidos (+1)</option>
+                            <option value="+502">Guatemala (+502)</option>
+                            <option value="+504">Honduras (+504)</option>
+                            <option value="+52">México (+52)</option>
+                            <option value="+505">Nicaragua (+505)</option>
+                            <option value="+64">Nueva Zelanda (+64)</option>
+                            <option value="+507">Panamá (+507)</option>
+                            <option value="+51">Perú (+51)</option>
+                            <option value="+1">Rep. Dominicana (+1)</option>
+                            <option value="+58">Venezuela (+58)</option>
+                            <option value="+54">Argentina (+54)</option>
+                            <option value="+591">Bolivia (+591)</option>
+                            <option value="+55">Brasil (+55)</option>
+                            <option value="+56">Chile (+56)</option>
+                            <option value="+593">Ecuador (+593)</option>
+                            <option value="+595">Paraguay (+595)</option>
+                            <option value="+598">Uruguay (+598)</option>
+                        </select>
+                        <input type="tel" id="whatsapp-number" name="whatsapp_number" class="w-full px-4 py-3 border border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Número de WhatsApp" required>
+                    </div>
                 </div>
                 <div class="mb-6 text-left">
                     <label for="descripcion-presupuesto" class="block text-gray-700 text-sm font-semibold mb-2">Descripción del requerimiento</label>
                     <textarea id="descripcion-presupuesto" name="descripcion" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500" placeholder="Cuéntanos con detalle qué necesitas." required></textarea>
                 </div>
-                <div class="mb-6 text-left">
-                    <label for="foto-presupuesto" class="block text-gray-700 text-sm font-semibold mb-2">Adjuntar foto (opcional)</label>
-                    <input type="file" id="foto-presupuesto" name="foto" accept="image/*" class="w-full text-gray-700">
-                    <p class="text-xs text-gray-500 mt-1">Una foto nos ayuda a entender mejor tu requerimiento.</p>
+                <div class="mb-6 text-left flex items-center">
+                    <input type="checkbox" id="privacy-policy" name="privacy_policy" class="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded" required>
+                    <label for="privacy-policy" class="ml-2 block text-sm text-gray-900">
+                        Acepto las <a href="#" class="text-pink-600 hover:underline">políticas de privacidad</a> y autorizo que Costura Latina me contacte por email o WhatsApp.
+                    </label>
                 </div>
-                <button type="submit" class="form-button w-full">
+                <button type="submit" id="submit-button" class="form-button w-full" disabled>
                     Enviar Solicitud
                 </button>
             </form>
@@ -286,40 +459,122 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section id="testimonios" class="py-12 md:py-16 rounded-xl shadow-md mx-4 md:mx-auto">
+    <!-- "Encuéntranos" Section -->
+    <section id="encuentranos" class="py-16 md:py-24 rounded-xl shadow-md mx-4 md:mx-auto">
         <div class="container mx-auto px-4 md:px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">Lo que dicen nuestros clientes</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Testimonial 1 -->
-                <div class="bg-pink-50 p-4 rounded-xl shadow-md flex flex-col items-center text-center">
-                    <img src="https://placehold.co/80x80/FFD1DC/333333?text=Ana" alt="Foto de Ana G." class="w-16 h-16 rounded-full object-cover mb-3 border-2 border-pink-300">
-                    <p class="text-gray-700 text-sm italic mb-3">
-                        "¡Increíble trabajo! Mi vestido favorito quedó como nuevo, incluso mejor. La atención al detalle es asombrosa y el trato, súper cercano. ¡Recomendadísimos!"
-                    </p>
-                    <p class="font-semibold text-pink-600 text-sm">- Ana G.</p>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">Nos Encuentras en Gold Coast</h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-12">Visítanos o coordina tu servicio desde cualquier parte de Australia</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <!-- Left Column: How we work, Guarantee -->
+                <div class="space-y-8">
+                    <!-- ¿Cómo trabajamos? -->
+                    <div class="bg-white p-6 rounded-xl shadow-md text-left">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">¿Cómo trabajamos?</h3>
+                        <ol class="space-y-4">
+                            <li class="flex items-center gap-4">
+                                <span class="flex items-center justify-center w-8 h-8 bg-pink-100 text-pink-600 font-bold rounded-full">1</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">Analizamos y recibimos tu prenda</p>
+                                    <p class="text-gray-600 text-sm">Escuchamos tu necesidad y evaluamos opciones</p>
+                                </div>
+                            </li>
+                            <li class="flex items-center gap-4">
+                                <span class="flex items-center justify-center w-8 h-8 bg-pink-100 text-pink-600 font-bold rounded-full">2</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">Trabajamos con amor y dedicación</p>
+                                    <p class="text-gray-600 text-sm">Técnica profesional con acabados prolijos</p>
+                                </div>
+                            </li>
+                            <li class="flex items-center gap-4">
+                                <span class="flex items-center justify-center w-8 h-8 bg-pink-100 text-pink-600 font-bold rounded-full">3</span>
+                                <div>
+                                    <p class="font-semibold text-gray-800">Te regresamos estilo y confianza</p>
+                                    <p class="text-gray-600 text-sm">Prenda lista para usar y disfrutar</p>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <!-- Garantía -->
+                    <div class="bg-green-50 p-6 rounded-xl shadow-md text-left border-l-4 border-green-400">
+                        <p class="font-semibold text-green-700 text-lg">Garantía: Si no queda perfecto, lo volvemos a ajustar sin costo</p>
+                    </div>
                 </div>
-                <!-- Testimonial 2 -->
-                <div class="bg-pink-50 p-4 rounded-xl shadow-md flex flex-col items-center text-center">
-                    <img src="https://placehold.co/80x80/C3E0FF/333333?text=Carlos" alt="Foto de Carlos M." class="w-16 h-16 rounded-full object-cover mb-3 border-2 border-pink-300">
-                    <p class="text-gray-700 text-sm italic mb-3">
-                        "Necesitaba un arreglo urgente para una boda y me salvaron el día. Calidad, rapidez y una sonrisa. Da gusto encontrar profesionales así. ¡Gracias, Costura Latina!"
-                    </p>
-                    <p class="font-semibold text-pink-600 text-sm">- Carlos M.</p>
-                </div>
-                <!-- Testimonial 3 -->
-                <div class="bg-pink-50 p-4 rounded-xl shadow-md flex flex-col items-center text-center">
-                    <img src="https://placehold.co/80x80/FFFACD/333333?text=Maria" alt="Foto de María P." class="w-16 h-16 rounded-full object-cover mb-3 border-2 border-pink-300">
-                    <p class="text-gray-700 text-sm italic mb-3">
-                        "Llevé unos jeans para transformar y el resultado superó mis expectativas. Captaron mi idea a la perfección y le dieron un toque único. ¡Mi ropa ahora tiene personalidad!"
-                    </p>
-                    <p class="font-semibold text-pink-600 text-sm">- María P.</p>
+
+                <!-- Right Column: Map and Contact Info -->
+                <div class="space-y-8">
+                    <!-- Google Map -->
+                    <div class="map-container">
+                        <iframe
+                            src="https://maps.google.com/maps?q=-28.000131506851996,153.43120331451271&hl=es&z=17&output=embed&t=k"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                    </div>
+                    <!-- Location and Hours -->
+                    <div class="bg-white p-6 rounded-xl shadow-md text-left">
+                        <p class="flex items-center gap-2 text-gray-700 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin text-pink-600"><path d="M12 10a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/><path d="M12 21.7L4.2 12.3c-2.4-3.6 1.8-8.7 6.6-8.7 4.8 0 9 5.1 6.6 8.7L12 21.7z"/></svg>
+                            En el corazón de Gold Coast, frente a la playa
+                        </p>
+                        <p class="flex items-center gap-2 text-gray-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock text-pink-600"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            Horarios: Lun-Vie 9am-6pm | Sáb 10am-4pm
+                        </p>
+                    </div>
+                     <!-- Request a Quote Button -->
+                    <div class="text-center">
+                        <a href="#presupuesto" class="form-button inline-block">Solicita tu Presupuesto GRATIS</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-      <!-- Social Media Section -->
+    <!-- FAQ Section -->
+    <section id="faq" class="py-16 md:py-24 rounded-xl shadow-md mx-4 md:mx-auto">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Preguntas Frecuentes</h2>
+            <p class="text-lg md:text-xl text-gray-600 mb-12">Resolvemos tus dudas más comunes</p>
+
+            <div class="max-w-3xl mx-auto">
+                <!-- FAQ Item 1 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>¿Cuánto tiempo toma un arreglo típico?</span>
+                        <svg class="w-6 h-6 accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="pb-5">La mayoría de arreglos simples (dobladillos, ajustes menores) están listos en 3-5 días. Para trabajos más complejos, puede tomar 7-10 días. Ofrecemos servicio express.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 2 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>¿Ofrecen garantía en su trabajo?</span>
+                        <svg class="w-6 h-6 accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="pb-5">¡Absolutamente! Si no quedas satisfecho con el resultado, lo ajustamos nuevamente sin costo adicional.</p>
+                    </div>
+                </div>
+                <!-- FAQ Item 3 -->
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>¿Cuánto es el tiempo máximo por cita?</span>
+                        <svg class="w-6 h-6 accordion-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="accordion-content">
+                        <p class="pb-5">Generalmente atendemos a múltiples clientes por día, y sabemos lo valioso que es el tiempo para cada uno de ustedes, así que nuestras citas no suelen durar más de <strong>15 minutos por cliente</strong>, con el fin de proporcionar un servicio único y personalizado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Media Section -->
     <section id="redes-sociales" class="py-16 md:py-24 rounded-xl shadow-md mx-4 md:mx-auto">
         <div class="container mx-auto px-4 md:px-6 text-center">
              <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-8">Síguenos en Redes</h2>
@@ -347,22 +602,18 @@
                 <a href="#sobre-nosotros" class="text-gray-300 hover:text-pink-400 transition duration-300">Sobre Nosotros</a>
                 <a href="#servicios" class="text-gray-300 hover:text-pink-400 transition duration-300">Servicios</a>
                 <a href="#presupuesto" class="text-gray-300 hover:text-pink-400 transition duration-300">Solicitar Presupuesto</a>
-                <a href="#testimonios" class="text-gray-300 hover:text-pink-400 transition duration-300">Testimonios</a>
+                <a href="#encuentranos" class="text-gray-300 hover:text-pink-400 transition duration-300">Encuéntranos</a>
+                <a href="#faq" class="text-gray-300 hover:text-pink-400 transition duration-300">FAQ</a>
+                <a href="#redes-sociales" class="text-gray-300 hover:text-pink-400 transition duration-300">Redes Sociales</a>
                 <a href="#" class="text-gray-300 hover:text-pink-400 transition duration-300">Aviso de Privacidad</a>
             </nav>
-            <p class="text-gray-400 text-sm">
-                &copy; 2025 Costura Latina. Todos los derechos reservados.
-            </p>
-            <p class="text-gray-400 text-sm mt-2">
+            <p class="text-gray-400 text-xs mt-2">
                 (Costura Latina: +61 430 049 118)
             </p>
         </div>
     </footer>
 
     <script>
-        // Tu URL de backend de Render
-        const BACKEND_URL = "https://costura-latina.onrender.com"; 
-
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -393,75 +644,134 @@
             });
         });
 
+        // FAQ Accordion functionality
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.accordion-icon');
+
+            content.classList.toggle('open');
+            icon.classList.toggle('rotate');
+
+            if (content.classList.contains('open')) {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } else {
+                content.style.maxHeight = "0";
+            }
+        }
+
+        // Form validation and button enable/disable
+        const form = document.getElementById('presupuesto-form');
+        const submitButton = document.getElementById('submit-button');
+        const privacyPolicyCheckbox = document.getElementById('privacy-policy');
+        const requiredInputs = form.querySelectorAll('[required]');
+
+        function validateForm() {
+            let allRequiredFilled = true;
+            requiredInputs.forEach(input => {
+                if (input.type === 'checkbox') {
+                    if (!input.checked) {
+                        allRequiredFilled = false;
+                    }
+                } else if (input.value.trim() === '') {
+                    allRequiredFilled = false;
+                }
+            });
+            submitButton.disabled = !allRequiredFilled;
+        }
+
+        form.addEventListener('input', validateForm);
+        privacyPolicyCheckbox.addEventListener('change', validateForm);
+        
+        // Initial validation call in case of pre-filled fields by browser
+        validateForm();
+
         // Form submission handler
         document.getElementById('presupuesto-form').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            const form = this;
-            const submitButton = form.querySelector('button[type="submit"]');
-            submitButton.textContent = 'Enviando...';
-            submitButton.disabled = true;
 
-            const formData = new FormData(form);
+            // Re-validate just before submission
+            if (submitButton.disabled) {
+                // Optionally show an alert or highlight missing fields
+                alert('Por favor, completa todos los campos requeridos y acepta las políticas de privacidad.');
+                return;
+            }
+
+            const formData = new FormData(this);
             const data = {};
             for (let [key, value] of formData.entries()) {
                 data[key] = value;
             }
 
-            // Eliminar el campo 'foto' del objeto de datos
-            delete data['foto'];
+            // Combine the WhatsApp prefix and number
+            const whatsappPrefix = document.getElementById('whatsapp-prefix').value;
+            const whatsappNumber = document.getElementById('whatsapp-number').value;
+            data.whatsapp = whatsappPrefix + whatsappNumber;
+            // Remove the individual prefix and number from data if they were added by FormData
+            delete data.whatsapp_prefix;
+            delete data.whatsapp_number;
 
-            // Envía los datos al backend
+
+            // Backend endpoint URL - IMPORTANT: Replace with your actual Render URL
+            const backendUrl = 'https://costura-latina.onrender.com/submit_form'; 
+
+            const formContainer = this.parentElement;
+            const confirmationMessage = document.createElement('p');
+            confirmationMessage.className = 'mt-4 text-lg font-semibold'; // Base classes
+            const existingMessage = formContainer.querySelector('.text-green-600, .text-red-600, .text-pink-600');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            // Add a loading indicator
+            const loadingMessage = document.createElement('p');
+            loadingMessage.className = 'mt-4 text-pink-600 text-lg font-semibold';
+            loadingMessage.textContent = 'Enviando solicitud... por favor espera.';
+            formContainer.appendChild(loadingMessage);
+
             try {
-                const response = await fetch(`${BACKEND_URL}/submit_form`, {
+                const response = await fetch(backendUrl, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(data),
+                    body: JSON.stringify(data)
                 });
 
                 const result = await response.json();
 
-                // Muestra el mensaje de confirmación
-                const formContainer = form.parentElement;
-                let messageElement = formContainer.querySelector('#form-message');
-
-                if (!messageElement) {
-                    messageElement = document.createElement('p');
-                    messageElement.id = 'form-message';
-                    messageElement.className = 'mt-4 text-lg font-semibold';
-                    formContainer.appendChild(messageElement);
+                // Remove loading message
+                if (loadingMessage) {
+                    loadingMessage.remove();
                 }
 
-                if (response.ok) {
-                    messageElement.textContent = '¡Tu solicitud ha sido enviada con éxito! Nos pondremos en contacto pronto.';
-                    messageElement.className = 'mt-4 text-lg font-semibold text-green-600';
-                    form.reset();
+                if (response.ok) { // Check for successful HTTP status (2xx)
+                    confirmationMessage.classList.add('text-green-600');
+                    confirmationMessage.textContent = result.message || '¡Tu solicitud ha sido enviada con éxito!';
+                    this.reset(); // Clear the form on success
                 } else {
-                    messageElement.textContent = `Error: ${result.message || 'Ha ocurrido un error inesperado.'}`;
-                    messageElement.className = 'mt-4 text-lg font-semibold text-red-600';
+                    confirmationMessage.classList.add('text-red-600');
+                    confirmationMessage.textContent = result.message || 'Error al enviar la solicitud. Inténtalo de nuevo.';
                 }
-
             } catch (error) {
-                console.error('Error al enviar el formulario:', error);
-                const formContainer = form.parentElement;
-                let messageElement = formContainer.querySelector('#form-message');
-
-                if (!messageElement) {
-                    messageElement = document.createElement('p');
-                    messageElement.id = 'form-message';
-                    messageElement.className = 'mt-4 text-lg font-semibold text-red-600';
-                    formContainer.appendChild(messageElement);
+                // Remove loading message
+                if (loadingMessage) {
+                    loadingMessage.remove();
                 }
-                messageElement.textContent = 'Error de conexión. Inténtalo de nuevo más tarde.';
+                
+                confirmationMessage.classList.add('text-red-600');
+                confirmationMessage.textContent = 'Error de conexión. Asegúrate de que el servidor esté funcionando y que la URL sea correcta.';
+                console.error('Error al enviar el formulario:', error);
             } finally {
-                submitButton.textContent = 'Enviar Solicitud';
-                submitButton.disabled = false;
+                formContainer.appendChild(confirmationMessage);
+                // Reset form validation after submission attempt
+                validateForm(); 
+                // Remove the message after a few seconds
+                setTimeout(() => {
+                    confirmationMessage.remove();
+                }, 8000); // Increased timeout for visibility
             }
         });
 
     </script>
 </body>
 </html>
-
