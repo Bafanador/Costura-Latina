@@ -769,8 +769,9 @@
                         confirmationMessage.textContent = 'Error de conexión. Asegúrate de que el servidor esté funcionando y que la URL sea correcta.';
                         console.error('Error al enviar el formulario:', error);
                     } finally {
+                        // Append confirmation message here, only once after loading message is removed
                         formContainer.appendChild(confirmationMessage);
-                        // Reset form validation state after submission attempt
+                        // Re-evaluate form state after reset or error to update button disabled state
                         validateForm(); 
                         // Remove the message after a few seconds
                         setTimeout(() => {
